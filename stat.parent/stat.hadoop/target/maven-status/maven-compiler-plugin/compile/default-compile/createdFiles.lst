@@ -1,0 +1,14 @@
+crxy\stat\hadoop\data\InitIP4Redis.class
+crxy\stat\hadoop\data\IP.class
+crxy\stat\hadoop\App.class
+crxy\stat\hadoop\data\Creator$UgcLogger.class
+crxy\stat\hadoop\data\Creator.class
+crxy\stat\hadoop\utils\UserAgent.class
+crxy\stat\hadoop\data\Creator$AccessLogger.class
+crxy\stat\hadoop\data\Gift.class
+crxy\stat\hadoop\mr\AccessLog.class
+crxy\stat\hadoop\mr\AccessLogCleaner.class
+crxy\stat\hadoop\utils\RedisUtils.class
+crxy\stat\hadoop\mr\AccessLogCleaner$AccessLogCleanerMapper.class
+crxy\stat\hadoop\utils\UserAgentUtil.class
+crxy\stat\hadoop\data\IP$1.class

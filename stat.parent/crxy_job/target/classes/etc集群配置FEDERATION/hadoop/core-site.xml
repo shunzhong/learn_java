@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Put site-specific property overrides in this file. -->
+
+<configuration>
+    <property>
+        <name>fs.defaultFS</name>
+        <value>viewfs://mycluster</value>
+    </property>
+	<property>
+		<name>fs.viewfs.mounttable.mycluster.homedir</name>
+		<value>/home</value>
+	</property>
+	<property>
+		<name>fs.viewfs.mounttable.mycluster.link./c99</name>
+		<value>hdfs://crxy99:9000/c99</value>
+	</property>
+	<property>
+		<name>fs.viewfs.mounttable.mycluster.link./c100</name>
+		<value>hdfs://crxy100:9000/c100</value>
+	</property>
+    <property>
+        <name>hadoop.tmp.dir</name>
+        <value>/usr/local/hadoop_repo/tmp</value>    
+	</property>
+	<!--
+    <property>
+        <name>fs.trash.interval</name>
+        <value>1440</value>
+    </property>
+	-->
+</configuration>
