@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mpd.api.dao.mapper.TaskMapper">
+  <resultMap id="BaseResultMap" type="com.mpd.api.dao.model.Task">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="task_code" jdbcType="VARCHAR" property="taskCode" />
+    <result column="next_task_code" jdbcType="VARCHAR" property="nextTaskCode" />
+    <result column="last_task_code" jdbcType="VARCHAR" property="lastTaskCode" />
+    <result column="x_position" jdbcType="DECIMAL" property="xPosition" />
+    <result column="y_position" jdbcType="DECIMAL" property="yPosition" />
+    <result column="laster_code" jdbcType="VARCHAR" property="lasterCode" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, name, task_code, next_task_code, last_task_code, x_position, y_position, laster_code
+  </sql>
+  <select id="selectByExample" parameterType="com.mpd.api.dao.model.TaskExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from mpd_task
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from mpd_task
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from mpd_task
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.mpd.api.dao.model.TaskExample">
+    delete from mpd_task
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mpd.api.dao.model.Task">
+    insert into mpd_task (id, name, task_code, 
+      next_task_code, last_task_code, x_position, 
+      y_position, laster_code)
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{taskCode,jdbcType=VARCHAR}, 
+      #{nextTaskCode,jdbcType=VARCHAR}, #{lastTaskCode,jdbcType=VARCHAR}, #{xPosition,jdbcType=DECIMAL}, 
+      #{yPosition,jdbcType=DECIMAL}, #{lasterCode,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mpd.api.dao.model.Task">
+    insert into mpd_task
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="taskCode != null">
+        task_code,
+      </if>
+      <if test="nextTaskCode != null">
+        next_task_code,
+      </if>
+      <if test="lastTaskCode != null">
+        last_task_code,
+      </if>
+      <if test="xPosition != null">
+        x_position,
+      </if>
+      <if test="yPosition != null">
+        y_position,
+      </if>
+      <if test="lasterCode != null">
+        laster_code,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="taskCode != null">
+        #{taskCode,jdbcType=VARCHAR},
+      </if>
+      <if test="nextTaskCode != null">
+        #{nextTaskCode,jdbcType=VARCHAR},
+      </if>
+      <if test="lastTaskCode != null">
+        #{lastTaskCode,jdbcType=VARCHAR},
+      </if>
+      <if test="xPosition != null">
+        #{xPosition,jdbcType=DECIMAL},
+      </if>
+      <if test="yPosition != null">
+        #{yPosition,jdbcType=DECIMAL},
+      </if>
+      <if test="lasterCode != null">
+        #{lasterCode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mpd.api.dao.model.TaskExample" resultType="java.lang.Long">
+    select count(*) from mpd_task
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update mpd_task
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taskCode != null">
+        task_code = #{record.taskCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nextTaskCode != null">
+        next_task_code = #{record.nextTaskCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastTaskCode != null">
+        last_task_code = #{record.lastTaskCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xPosition != null">
+        x_position = #{record.xPosition,jdbcType=DECIMAL},
+      </if>
+      <if test="record.yPosition != null">
+        y_position = #{record.yPosition,jdbcType=DECIMAL},
+      </if>
+      <if test="record.lasterCode != null">
+        laster_code = #{record.lasterCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update mpd_task
+    set id = #{record.id,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      task_code = #{record.taskCode,jdbcType=VARCHAR},
+      next_task_code = #{record.nextTaskCode,jdbcType=VARCHAR},
+      last_task_code = #{record.lastTaskCode,jdbcType=VARCHAR},
+      x_position = #{record.xPosition,jdbcType=DECIMAL},
+      y_position = #{record.yPosition,jdbcType=DECIMAL},
+      laster_code = #{record.lasterCode,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mpd.api.dao.model.Task">
+    update mpd_task
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="taskCode != null">
+        task_code = #{taskCode,jdbcType=VARCHAR},
+      </if>
+      <if test="nextTaskCode != null">
+        next_task_code = #{nextTaskCode,jdbcType=VARCHAR},
+      </if>
+      <if test="lastTaskCode != null">
+        last_task_code = #{lastTaskCode,jdbcType=VARCHAR},
+      </if>
+      <if test="xPosition != null">
+        x_position = #{xPosition,jdbcType=DECIMAL},
+      </if>
+      <if test="yPosition != null">
+        y_position = #{yPosition,jdbcType=DECIMAL},
+      </if>
+      <if test="lasterCode != null">
+        laster_code = #{lasterCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mpd.api.dao.model.Task">
+    update mpd_task
+    set name = #{name,jdbcType=VARCHAR},
+      task_code = #{taskCode,jdbcType=VARCHAR},
+      next_task_code = #{nextTaskCode,jdbcType=VARCHAR},
+      last_task_code = #{lastTaskCode,jdbcType=VARCHAR},
+      x_position = #{xPosition,jdbcType=DECIMAL},
+      y_position = #{yPosition,jdbcType=DECIMAL},
+      laster_code = #{lasterCode,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

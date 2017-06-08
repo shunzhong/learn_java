@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mpd.api.dao.mapper.HouseSurveyFileMapper">
+  <resultMap id="BaseResultMap" type="com.mpd.api.dao.model.HouseSurveyFile">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="house_survey_id" jdbcType="INTEGER" property="houseSurveyId" />
+    <result column="identity_card_front" jdbcType="VARCHAR" property="identityCardFront" />
+    <result column="identity_card_back" jdbcType="VARCHAR" property="identityCardBack" />
+    <result column="identity_hold" jdbcType="VARCHAR" property="identityHold" />
+    <result column="marriage_certificate" jdbcType="VARCHAR" property="marriageCertificate" />
+    <result column="living_area_gate" jdbcType="VARCHAR" property="livingAreaGate" />
+    <result column="living_area_around" jdbcType="VARCHAR" property="livingAreaAround" />
+    <result column="living_area_inner" jdbcType="VARCHAR" property="livingAreaInner" />
+    <result column="house_number" jdbcType="VARCHAR" property="houseNumber" />
+    <result column="sitting_room" jdbcType="VARCHAR" property="sittingRoom" />
+    <result column="bedrooom" jdbcType="VARCHAR" property="bedrooom" />
+    <result column="kitchen" jdbcType="VARCHAR" property="kitchen" />
+    <result column="bathroom" jdbcType="VARCHAR" property="bathroom" />
+    <result column="balcony" jdbcType="VARCHAR" property="balcony" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, house_survey_id, identity_card_front, identity_card_back, identity_hold, marriage_certificate, 
+    living_area_gate, living_area_around, living_area_inner, house_number, sitting_room, 
+    bedrooom, kitchen, bathroom, balcony
+  </sql>
+  <select id="selectByExample" parameterType="com.mpd.api.dao.model.HouseSurveyFileExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from mpd_house_survey_file
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from mpd_house_survey_file
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from mpd_house_survey_file
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.mpd.api.dao.model.HouseSurveyFileExample">
+    delete from mpd_house_survey_file
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mpd.api.dao.model.HouseSurveyFile">
+    insert into mpd_house_survey_file (id, house_survey_id, identity_card_front, 
+      identity_card_back, identity_hold, marriage_certificate, 
+      living_area_gate, living_area_around, living_area_inner, 
+      house_number, sitting_room, bedrooom, 
+      kitchen, bathroom, balcony
+      )
+    values (#{id,jdbcType=INTEGER}, #{houseSurveyId,jdbcType=INTEGER}, #{identityCardFront,jdbcType=VARCHAR}, 
+      #{identityCardBack,jdbcType=VARCHAR}, #{identityHold,jdbcType=VARCHAR}, #{marriageCertificate,jdbcType=VARCHAR}, 
+      #{livingAreaGate,jdbcType=VARCHAR}, #{livingAreaAround,jdbcType=VARCHAR}, #{livingAreaInner,jdbcType=VARCHAR}, 
+      #{houseNumber,jdbcType=VARCHAR}, #{sittingRoom,jdbcType=VARCHAR}, #{bedrooom,jdbcType=VARCHAR}, 
+      #{kitchen,jdbcType=VARCHAR}, #{bathroom,jdbcType=VARCHAR}, #{balcony,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.mpd.api.dao.model.HouseSurveyFile">
+    insert into mpd_house_survey_file
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="houseSurveyId != null">
+        house_survey_id,
+      </if>
+      <if test="identityCardFront != null">
+        identity_card_front,
+      </if>
+      <if test="identityCardBack != null">
+        identity_card_back,
+      </if>
+      <if test="identityHold != null">
+        identity_hold,
+      </if>
+      <if test="marriageCertificate != null">
+        marriage_certificate,
+      </if>
+      <if test="livingAreaGate != null">
+        living_area_gate,
+      </if>
+      <if test="livingAreaAround != null">
+        living_area_around,
+      </if>
+      <if test="livingAreaInner != null">
+        living_area_inner,
+      </if>
+      <if test="houseNumber != null">
+        house_number,
+      </if>
+      <if test="sittingRoom != null">
+        sitting_room,
+      </if>
+      <if test="bedrooom != null">
+        bedrooom,
+      </if>
+      <if test="kitchen != null">
+        kitchen,
+      </if>
+      <if test="bathroom != null">
+        bathroom,
+      </if>
+      <if test="balcony != null">
+        balcony,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="houseSurveyId != null">
+        #{houseSurveyId,jdbcType=INTEGER},
+      </if>
+      <if test="identityCardFront != null">
+        #{identityCardFront,jdbcType=VARCHAR},
+      </if>
+      <if test="identityCardBack != null">
+        #{identityCardBack,jdbcType=VARCHAR},
+      </if>
+      <if test="identityHold != null">
+        #{identityHold,jdbcType=VARCHAR},
+      </if>
+      <if test="marriageCertificate != null">
+        #{marriageCertificate,jdbcType=VARCHAR},
+      </if>
+      <if test="livingAreaGate != null">
+        #{livingAreaGate,jdbcType=VARCHAR},
+      </if>
+      <if test="livingAreaAround != null">
+        #{livingAreaAround,jdbcType=VARCHAR},
+      </if>
+      <if test="livingAreaInner != null">
+        #{livingAreaInner,jdbcType=VARCHAR},
+      </if>
+      <if test="houseNumber != null">
+        #{houseNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="sittingRoom != null">
+        #{sittingRoom,jdbcType=VARCHAR},
+      </if>
+      <if test="bedrooom != null">
+        #{bedrooom,jdbcType=VARCHAR},
+      </if>
+      <if test="kitchen != null">
+        #{kitchen,jdbcType=VARCHAR},
+      </if>
+      <if test="bathroom != null">
+        #{bathroom,jdbcType=VARCHAR},
+      </if>
+      <if test="balcony != null">
+        #{balcony,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mpd.api.dao.model.HouseSurveyFileExample" resultType="java.lang.Long">
+    select count(*) from mpd_house_survey_file
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update mpd_house_survey_file
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.houseSurveyId != null">
+        house_survey_id = #{record.houseSurveyId,jdbcType=INTEGER},
+      </if>
+      <if test="record.identityCardFront != null">
+        identity_card_front = #{record.identityCardFront,jdbcType=VARCHAR},
+      </if>
+      <if test="record.identityCardBack != null">
+        identity_card_back = #{record.identityCardBack,jdbcType=VARCHAR},
+      </if>
+      <if test="record.identityHold != null">
+        identity_hold = #{record.identityHold,jdbcType=VARCHAR},
+      </if>
+      <if test="record.marriageCertificate != null">
+        marriage_certificate = #{record.marriageCertificate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.livingAreaGate != null">
+        living_area_gate = #{record.livingAreaGate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.livingAreaAround != null">
+        living_area_around = #{record.livingAreaAround,jdbcType=VARCHAR},
+      </if>
+      <if test="record.livingAreaInner != null">
+        living_area_inner = #{record.livingAreaInner,jdbcType=VARCHAR},
+      </if>
+      <if test="record.houseNumber != null">
+        house_number = #{record.houseNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sittingRoom != null">
+        sitting_room = #{record.sittingRoom,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bedrooom != null">
+        bedrooom = #{record.bedrooom,jdbcType=VARCHAR},
+      </if>
+      <if test="record.kitchen != null">
+        kitchen = #{record.kitchen,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bathroom != null">
+        bathroom = #{record.bathroom,jdbcType=VARCHAR},
+      </if>
+      <if test="record.balcony != null">
+        balcony = #{record.balcony,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update mpd_house_survey_file
+    set id = #{record.id,jdbcType=INTEGER},
+      house_survey_id = #{record.houseSurveyId,jdbcType=INTEGER},
+      identity_card_front = #{record.identityCardFront,jdbcType=VARCHAR},
+      identity_card_back = #{record.identityCardBack,jdbcType=VARCHAR},
+      identity_hold = #{record.identityHold,jdbcType=VARCHAR},
+      marriage_certificate = #{record.marriageCertificate,jdbcType=VARCHAR},
+      living_area_gate = #{record.livingAreaGate,jdbcType=VARCHAR},
+      living_area_around = #{record.livingAreaAround,jdbcType=VARCHAR},
+      living_area_inner = #{record.livingAreaInner,jdbcType=VARCHAR},
+      house_number = #{record.houseNumber,jdbcType=VARCHAR},
+      sitting_room = #{record.sittingRoom,jdbcType=VARCHAR},
+      bedrooom = #{record.bedrooom,jdbcType=VARCHAR},
+      kitchen = #{record.kitchen,jdbcType=VARCHAR},
+      bathroom = #{record.bathroom,jdbcType=VARCHAR},
+      balcony = #{record.balcony,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mpd.api.dao.model.HouseSurveyFile">
+    update mpd_house_survey_file
+    <set>
+      <if test="houseSurveyId != null">
+        house_survey_id = #{houseSurveyId,jdbcType=INTEGER},
+      </if>
+      <if test="identityCardFront != null">
+        identity_card_front = #{identityCardFront,jdbcType=VARCHAR},
+      </if>
+      <if test="identityCardBack != null">
+        identity_card_back = #{identityCardBack,jdbcType=VARCHAR},
+      </if>
+      <if test="identityHold != null">
+        identity_hold = #{identityHold,jdbcType=VARCHAR},
+      </if>
+      <if test="marriageCertificate != null">
+        marriage_certificate = #{marriageCertificate,jdbcType=VARCHAR},
+      </if>
+      <if test="livingAreaGate != null">
+        living_area_gate = #{livingAreaGate,jdbcType=VARCHAR},
+      </if>
+      <if test="livingAreaAround != null">
+        living_area_around = #{livingAreaAround,jdbcType=VARCHAR},
+      </if>
+      <if test="livingAreaInner != null">
+        living_area_inner = #{livingAreaInner,jdbcType=VARCHAR},
+      </if>
+      <if test="houseNumber != null">
+        house_number = #{houseNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="sittingRoom != null">
+        sitting_room = #{sittingRoom,jdbcType=VARCHAR},
+      </if>
+      <if test="bedrooom != null">
+        bedrooom = #{bedrooom,jdbcType=VARCHAR},
+      </if>
+      <if test="kitchen != null">
+        kitchen = #{kitchen,jdbcType=VARCHAR},
+      </if>
+      <if test="bathroom != null">
+        bathroom = #{bathroom,jdbcType=VARCHAR},
+      </if>
+      <if test="balcony != null">
+        balcony = #{balcony,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mpd.api.dao.model.HouseSurveyFile">
+    update mpd_house_survey_file
+    set house_survey_id = #{houseSurveyId,jdbcType=INTEGER},
+      identity_card_front = #{identityCardFront,jdbcType=VARCHAR},
+      identity_card_back = #{identityCardBack,jdbcType=VARCHAR},
+      identity_hold = #{identityHold,jdbcType=VARCHAR},
+      marriage_certificate = #{marriageCertificate,jdbcType=VARCHAR},
+      living_area_gate = #{livingAreaGate,jdbcType=VARCHAR},
+      living_area_around = #{livingAreaAround,jdbcType=VARCHAR},
+      living_area_inner = #{livingAreaInner,jdbcType=VARCHAR},
+      house_number = #{houseNumber,jdbcType=VARCHAR},
+      sitting_room = #{sittingRoom,jdbcType=VARCHAR},
+      bedrooom = #{bedrooom,jdbcType=VARCHAR},
+      kitchen = #{kitchen,jdbcType=VARCHAR},
+      bathroom = #{bathroom,jdbcType=VARCHAR},
+      balcony = #{balcony,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

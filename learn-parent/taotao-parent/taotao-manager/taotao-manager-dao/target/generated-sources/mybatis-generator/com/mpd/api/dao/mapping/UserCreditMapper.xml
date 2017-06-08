@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mpd.api.dao.mapper.UserCreditMapper">
+  <resultMap id="BaseResultMap" type="com.mpd.api.dao.model.UserCredit">
+    <id column="credit_id" jdbcType="VARCHAR" property="creditId" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="loan_stroke_count" jdbcType="INTEGER" property="loanStrokeCount" />
+    <result column="loan_money" jdbcType="REAL" property="loanMoney" />
+    <result column="overdue_stroke_count" jdbcType="INTEGER" property="overdueStrokeCount" />
+    <result column="credit_ratings" jdbcType="INTEGER" property="creditRatings" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    credit_id, user_id, loan_stroke_count, loan_money, overdue_stroke_count, credit_ratings
+  </sql>
+  <select id="selectByExample" parameterType="com.mpd.api.dao.model.UserCreditExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from mpd_user_credit
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from mpd_user_credit
+    where credit_id = #{creditId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from mpd_user_credit
+    where credit_id = #{creditId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.mpd.api.dao.model.UserCreditExample">
+    delete from mpd_user_credit
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mpd.api.dao.model.UserCredit">
+    insert into mpd_user_credit (credit_id, user_id, loan_stroke_count, 
+      loan_money, overdue_stroke_count, credit_ratings
+      )
+    values (#{creditId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{loanStrokeCount,jdbcType=INTEGER}, 
+      #{loanMoney,jdbcType=REAL}, #{overdueStrokeCount,jdbcType=INTEGER}, #{creditRatings,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.mpd.api.dao.model.UserCredit">
+    insert into mpd_user_credit
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="creditId != null">
+        credit_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="loanStrokeCount != null">
+        loan_stroke_count,
+      </if>
+      <if test="loanMoney != null">
+        loan_money,
+      </if>
+      <if test="overdueStrokeCount != null">
+        overdue_stroke_count,
+      </if>
+      <if test="creditRatings != null">
+        credit_ratings,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="creditId != null">
+        #{creditId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="loanStrokeCount != null">
+        #{loanStrokeCount,jdbcType=INTEGER},
+      </if>
+      <if test="loanMoney != null">
+        #{loanMoney,jdbcType=REAL},
+      </if>
+      <if test="overdueStrokeCount != null">
+        #{overdueStrokeCount,jdbcType=INTEGER},
+      </if>
+      <if test="creditRatings != null">
+        #{creditRatings,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mpd.api.dao.model.UserCreditExample" resultType="java.lang.Long">
+    select count(*) from mpd_user_credit
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update mpd_user_credit
+    <set>
+      <if test="record.creditId != null">
+        credit_id = #{record.creditId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loanStrokeCount != null">
+        loan_stroke_count = #{record.loanStrokeCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.loanMoney != null">
+        loan_money = #{record.loanMoney,jdbcType=REAL},
+      </if>
+      <if test="record.overdueStrokeCount != null">
+        overdue_stroke_count = #{record.overdueStrokeCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.creditRatings != null">
+        credit_ratings = #{record.creditRatings,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update mpd_user_credit
+    set credit_id = #{record.creditId,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=VARCHAR},
+      loan_stroke_count = #{record.loanStrokeCount,jdbcType=INTEGER},
+      loan_money = #{record.loanMoney,jdbcType=REAL},
+      overdue_stroke_count = #{record.overdueStrokeCount,jdbcType=INTEGER},
+      credit_ratings = #{record.creditRatings,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mpd.api.dao.model.UserCredit">
+    update mpd_user_credit
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="loanStrokeCount != null">
+        loan_stroke_count = #{loanStrokeCount,jdbcType=INTEGER},
+      </if>
+      <if test="loanMoney != null">
+        loan_money = #{loanMoney,jdbcType=REAL},
+      </if>
+      <if test="overdueStrokeCount != null">
+        overdue_stroke_count = #{overdueStrokeCount,jdbcType=INTEGER},
+      </if>
+      <if test="creditRatings != null">
+        credit_ratings = #{creditRatings,jdbcType=INTEGER},
+      </if>
+    </set>
+    where credit_id = #{creditId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mpd.api.dao.model.UserCredit">
+    update mpd_user_credit
+    set user_id = #{userId,jdbcType=VARCHAR},
+      loan_stroke_count = #{loanStrokeCount,jdbcType=INTEGER},
+      loan_money = #{loanMoney,jdbcType=REAL},
+      overdue_stroke_count = #{overdueStrokeCount,jdbcType=INTEGER},
+      credit_ratings = #{creditRatings,jdbcType=INTEGER}
+    where credit_id = #{creditId,jdbcType=VARCHAR}
+  </update>
+</mapper>

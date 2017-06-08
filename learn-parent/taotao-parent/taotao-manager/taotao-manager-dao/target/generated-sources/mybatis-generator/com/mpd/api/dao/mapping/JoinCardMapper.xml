@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mpd.api.dao.mapper.JoinCardMapper">
+  <resultMap id="BaseResultMap" type="com.mpd.api.dao.model.JoinCard">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="card" jdbcType="VARCHAR" property="card" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="ispretty" jdbcType="TINYINT" property="ispretty" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="bank_code" jdbcType="VARCHAR" property="bankCode" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, card, status, ispretty, create_date, bank_code
+  </sql>
+  <select id="selectByExample" parameterType="com.mpd.api.dao.model.JoinCardExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from mpd_join_card
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from mpd_join_card
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from mpd_join_card
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.mpd.api.dao.model.JoinCardExample">
+    delete from mpd_join_card
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mpd.api.dao.model.JoinCard">
+    insert into mpd_join_card (id, card, status, 
+      ispretty, create_date, bank_code
+      )
+    values (#{id,jdbcType=VARCHAR}, #{card,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, 
+      #{ispretty,jdbcType=TINYINT}, #{createDate,jdbcType=TIMESTAMP}, #{bankCode,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.mpd.api.dao.model.JoinCard">
+    insert into mpd_join_card
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="card != null">
+        card,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="ispretty != null">
+        ispretty,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="bankCode != null">
+        bank_code,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="card != null">
+        #{card,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="ispretty != null">
+        #{ispretty,jdbcType=TINYINT},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bankCode != null">
+        #{bankCode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mpd.api.dao.model.JoinCardExample" resultType="java.lang.Long">
+    select count(*) from mpd_join_card
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update mpd_join_card
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.card != null">
+        card = #{record.card,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=TINYINT},
+      </if>
+      <if test="record.ispretty != null">
+        ispretty = #{record.ispretty,jdbcType=TINYINT},
+      </if>
+      <if test="record.createDate != null">
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.bankCode != null">
+        bank_code = #{record.bankCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update mpd_join_card
+    set id = #{record.id,jdbcType=VARCHAR},
+      card = #{record.card,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=TINYINT},
+      ispretty = #{record.ispretty,jdbcType=TINYINT},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      bank_code = #{record.bankCode,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mpd.api.dao.model.JoinCard">
+    update mpd_join_card
+    <set>
+      <if test="card != null">
+        card = #{card,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="ispretty != null">
+        ispretty = #{ispretty,jdbcType=TINYINT},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bankCode != null">
+        bank_code = #{bankCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mpd.api.dao.model.JoinCard">
+    update mpd_join_card
+    set card = #{card,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      ispretty = #{ispretty,jdbcType=TINYINT},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      bank_code = #{bankCode,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

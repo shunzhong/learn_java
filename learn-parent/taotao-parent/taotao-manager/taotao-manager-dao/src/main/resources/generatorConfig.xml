@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC
+        "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+
+    <!-- !!!! Driver Class Path !!!! -->
+    <classPathEntry location="/run/media/richard/data/mvnrepo/mysql/mysql-connector-java/5.1.30/mysql-connector-java-5.1.30.jar"/>
+
+    <context id="context" targetRuntime="MyBatis3">
+        <commentGenerator>
+            <!-- 抑制警告 -->
+            <property name="suppressTypeWarnings" value="true" />
+            <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+            <property name="suppressAllComments" value="true" />
+            <!-- 是否生成注释代时间戳-->
+            <property name="suppressDate" value="true" />
+        </commentGenerator>
+
+
+        <!-- !!!! Database Configurations !!!! -->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://192.168.1.136:3306/jt_console_dev"
+                        userId="mpd" password="P8e6jc*k$09@MPD"/>
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="true"/>
+        </javaTypeResolver>
+
+        <!-- !!!! Model Configurations !!!! -->
+        <javaModelGenerator targetPackage="com.mpd.api.dao.model" targetProject="MAVEN">
+            <property name="enableSubPackages" value="false"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <!-- !!!! Mapper XML Configurations !!!! -->
+        <sqlMapGenerator targetPackage="com.mpd.api.dao.mapping" targetProject="MAVEN">
+            <property name="enableSubPackages" value="false"/>
+        </sqlMapGenerator>
+
+        <!-- !!!! Mapper Interface Configurations !!!! -->
+        <javaClientGenerator targetPackage="com.mpd.api.dao.mapper" targetProject="MAVEN" type="XMLMAPPER">
+            <property name="enableSubPackages" value="false"/>
+        </javaClientGenerator>
+
+        <!-- !!!! Table Configurations !!!! -->
+   <!--     <table tableName="" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false"/>-->
+        <!-- 指定数据库表 -->
+        <table domainObjectName="AccountDetail" tableName="mpd_account_detail"></table>
+        <table domainObjectName="Address" tableName="mpd_address"></table>
+        <table domainObjectName="AllocationInfo" tableName="mpd_allocation_info"></table>
+        <table domainObjectName="Apply" tableName="mpd_apply"></table>
+        <table domainObjectName="AuthCode" tableName="mpd_auth_code"></table>
+        <table domainObjectName="Bank" tableName="mpd_bank"></table>
+        <table domainObjectName="CreditRecord" tableName="mpd_credit_record"></table>
+        <table domainObjectName="HandlerRecord" tableName="mpd_handle_record"></table>
+        <table domainObjectName="HandlerUser" tableName="mpd_handle_user"></table>
+        <table domainObjectName="HouseAssessmentInfo" tableName="mpd_house_assessment_info"></table>
+        <table domainObjectName="HouseCoparcenaryRatio" tableName="mpd_house_coparcenary_ratio"></table>
+        <table domainObjectName="HouseHandleInfo" tableName="mpd_house_handle_info"></table>
+        <table domainObjectName="HouseNotarizationInfo" tableName="mpd_house_notarization_info"></table>
+        <table domainObjectName="HouseOnlineAssessmentInfo" tableName="mpd_house_online_assessment_info"></table>
+
+        <table domainObjectName="HousePropertyInfo" tableName="mpd_house_property_info"></table>
+        <table domainObjectName="HouseSurveyFile" tableName="mpd_house_survey_file"></table>
+
+        <table domainObjectName="HouseSurveyInfo" tableName="mpd_house_survey_info"></table>
+        <table domainObjectName="JoinCard" tableName="mpd_join_card"></table>
+        <table domainObjectName="LivingAreaPriceInfo" tableName="mpd_living_area_price_info"></table>
+        <table domainObjectName="LoanInfo" tableName="mpd_loan_info"></table>
+        <table domainObjectName="LoanInfoOprInfo" tableName="mpd_loan_info_opr_record"></table>
+        <table domainObjectName="LoanOtherCharge" tableName="mpd_loan_other_charge"></table>
+        <table domainObjectName="LoanRepaymentPlan" tableName="mpd_loan_repayment_plan"></table>
+        <table domainObjectName="ManualAssessment" tableName="mpd_manual_assessment"></table>
+        <table domainObjectName="Message" tableName="mpd_message"></table>
+        <table domainObjectName="Score" tableName="mpd_score"></table>
+        <table domainObjectName="ScoreRecord" tableName="mpd_score_record"></table>
+        <table domainObjectName="SysInitAreaPriceinfo" tableName="mpd_sys_init_area_priceinfo"></table>
+        <table domainObjectName="Task" tableName="mpd_task"></table>
+        <table domainObjectName="UserAccountInfo" tableName="mpd_user_account_info"></table>
+        <table domainObjectName="UserBankInfo" tableName="mpd_user_bank_info"></table>
+
+        <table domainObjectName="UserContactsInfo" tableName="mpd_user_contacts_info"></table>
+        <table domainObjectName="UserCredit" tableName="mpd_user_credit"></table>
+        <table domainObjectName="UserInfo" tableName="mpd_user_info"></table>
+        <table domainObjectName="UserJobInfo" tableName="mpd_user_job_info"></table>
+        <table domainObjectName="UserMortgageHouseInfo" tableName="mpd_user_mortgage_house_info"></table>
+        <table domainObjectName="UserRegisterInfo" tableName="mpd_user_register_info"></table>
+
+    </context>
+</generatorConfiguration>

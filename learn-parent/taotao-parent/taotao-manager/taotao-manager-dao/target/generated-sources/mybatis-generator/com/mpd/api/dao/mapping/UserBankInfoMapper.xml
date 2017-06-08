@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mpd.api.dao.mapper.UserBankInfoMapper">
+  <resultMap id="BaseResultMap" type="com.mpd.api.dao.model.UserBankInfo">
+    <result column="id" jdbcType="VARCHAR" property="id" />
+    <result column="bank_name" jdbcType="CHAR" property="bankName" />
+    <result column="subbranch" jdbcType="CHAR" property="subbranch" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="bank_number" jdbcType="DECIMAL" property="bankNumber" />
+    <result column="card_status" jdbcType="SMALLINT" property="cardStatus" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, bank_name, subbranch, user_id, bank_number, card_status
+  </sql>
+  <select id="selectByExample" parameterType="com.mpd.api.dao.model.UserBankInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from mpd_user_bank_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.mpd.api.dao.model.UserBankInfoExample">
+    delete from mpd_user_bank_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mpd.api.dao.model.UserBankInfo">
+    insert into mpd_user_bank_info (id, bank_name, subbranch, 
+      user_id, bank_number, card_status
+      )
+    values (#{id,jdbcType=VARCHAR}, #{bankName,jdbcType=CHAR}, #{subbranch,jdbcType=CHAR}, 
+      #{userId,jdbcType=VARCHAR}, #{bankNumber,jdbcType=DECIMAL}, #{cardStatus,jdbcType=SMALLINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.mpd.api.dao.model.UserBankInfo">
+    insert into mpd_user_bank_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="bankName != null">
+        bank_name,
+      </if>
+      <if test="subbranch != null">
+        subbranch,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="bankNumber != null">
+        bank_number,
+      </if>
+      <if test="cardStatus != null">
+        card_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="bankName != null">
+        #{bankName,jdbcType=CHAR},
+      </if>
+      <if test="subbranch != null">
+        #{subbranch,jdbcType=CHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="bankNumber != null">
+        #{bankNumber,jdbcType=DECIMAL},
+      </if>
+      <if test="cardStatus != null">
+        #{cardStatus,jdbcType=SMALLINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mpd.api.dao.model.UserBankInfoExample" resultType="java.lang.Long">
+    select count(*) from mpd_user_bank_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update mpd_user_bank_info
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankName != null">
+        bank_name = #{record.bankName,jdbcType=CHAR},
+      </if>
+      <if test="record.subbranch != null">
+        subbranch = #{record.subbranch,jdbcType=CHAR},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankNumber != null">
+        bank_number = #{record.bankNumber,jdbcType=DECIMAL},
+      </if>
+      <if test="record.cardStatus != null">
+        card_status = #{record.cardStatus,jdbcType=SMALLINT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update mpd_user_bank_info
+    set id = #{record.id,jdbcType=VARCHAR},
+      bank_name = #{record.bankName,jdbcType=CHAR},
+      subbranch = #{record.subbranch,jdbcType=CHAR},
+      user_id = #{record.userId,jdbcType=VARCHAR},
+      bank_number = #{record.bankNumber,jdbcType=DECIMAL},
+      card_status = #{record.cardStatus,jdbcType=SMALLINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mpd.api.dao.mapper.UserRegisterInfoMapper">
+  <resultMap id="BaseResultMap" type="com.mpd.api.dao.model.UserRegisterInfo">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="telphone" jdbcType="DECIMAL" property="telphone" />
+    <result column="register_time" jdbcType="TIMESTAMP" property="registerTime" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="login_time" jdbcType="TIMESTAMP" property="loginTime" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="login_name" jdbcType="VARCHAR" property="loginName" />
+    <result column="user_source" jdbcType="SMALLINT" property="userSource" />
+    <result column="login_ip" jdbcType="VARCHAR" property="loginIp" />
+    <result column="login_flag" jdbcType="SMALLINT" property="loginFlag" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, telphone, register_time, password, login_time, email, login_name, user_source, 
+    login_ip, login_flag
+  </sql>
+  <select id="selectByExample" parameterType="com.mpd.api.dao.model.UserRegisterInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from mpd_user_register_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from mpd_user_register_info
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from mpd_user_register_info
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.mpd.api.dao.model.UserRegisterInfoExample">
+    delete from mpd_user_register_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mpd.api.dao.model.UserRegisterInfo">
+    insert into mpd_user_register_info (id, telphone, register_time, 
+      password, login_time, email, 
+      login_name, user_source, login_ip, 
+      login_flag)
+    values (#{id,jdbcType=VARCHAR}, #{telphone,jdbcType=DECIMAL}, #{registerTime,jdbcType=TIMESTAMP}, 
+      #{password,jdbcType=VARCHAR}, #{loginTime,jdbcType=TIMESTAMP}, #{email,jdbcType=VARCHAR}, 
+      #{loginName,jdbcType=VARCHAR}, #{userSource,jdbcType=SMALLINT}, #{loginIp,jdbcType=VARCHAR}, 
+      #{loginFlag,jdbcType=SMALLINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mpd.api.dao.model.UserRegisterInfo">
+    insert into mpd_user_register_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="telphone != null">
+        telphone,
+      </if>
+      <if test="registerTime != null">
+        register_time,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="loginTime != null">
+        login_time,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="loginName != null">
+        login_name,
+      </if>
+      <if test="userSource != null">
+        user_source,
+      </if>
+      <if test="loginIp != null">
+        login_ip,
+      </if>
+      <if test="loginFlag != null">
+        login_flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="telphone != null">
+        #{telphone,jdbcType=DECIMAL},
+      </if>
+      <if test="registerTime != null">
+        #{registerTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="loginTime != null">
+        #{loginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="loginName != null">
+        #{loginName,jdbcType=VARCHAR},
+      </if>
+      <if test="userSource != null">
+        #{userSource,jdbcType=SMALLINT},
+      </if>
+      <if test="loginIp != null">
+        #{loginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="loginFlag != null">
+        #{loginFlag,jdbcType=SMALLINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mpd.api.dao.model.UserRegisterInfoExample" resultType="java.lang.Long">
+    select count(*) from mpd_user_register_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update mpd_user_register_info
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.telphone != null">
+        telphone = #{record.telphone,jdbcType=DECIMAL},
+      </if>
+      <if test="record.registerTime != null">
+        register_time = #{record.registerTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.password != null">
+        password = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loginTime != null">
+        login_time = #{record.loginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.email != null">
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loginName != null">
+        login_name = #{record.loginName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userSource != null">
+        user_source = #{record.userSource,jdbcType=SMALLINT},
+      </if>
+      <if test="record.loginIp != null">
+        login_ip = #{record.loginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loginFlag != null">
+        login_flag = #{record.loginFlag,jdbcType=SMALLINT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update mpd_user_register_info
+    set id = #{record.id,jdbcType=VARCHAR},
+      telphone = #{record.telphone,jdbcType=DECIMAL},
+      register_time = #{record.registerTime,jdbcType=TIMESTAMP},
+      password = #{record.password,jdbcType=VARCHAR},
+      login_time = #{record.loginTime,jdbcType=TIMESTAMP},
+      email = #{record.email,jdbcType=VARCHAR},
+      login_name = #{record.loginName,jdbcType=VARCHAR},
+      user_source = #{record.userSource,jdbcType=SMALLINT},
+      login_ip = #{record.loginIp,jdbcType=VARCHAR},
+      login_flag = #{record.loginFlag,jdbcType=SMALLINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mpd.api.dao.model.UserRegisterInfo">
+    update mpd_user_register_info
+    <set>
+      <if test="telphone != null">
+        telphone = #{telphone,jdbcType=DECIMAL},
+      </if>
+      <if test="registerTime != null">
+        register_time = #{registerTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="loginTime != null">
+        login_time = #{loginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="loginName != null">
+        login_name = #{loginName,jdbcType=VARCHAR},
+      </if>
+      <if test="userSource != null">
+        user_source = #{userSource,jdbcType=SMALLINT},
+      </if>
+      <if test="loginIp != null">
+        login_ip = #{loginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="loginFlag != null">
+        login_flag = #{loginFlag,jdbcType=SMALLINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mpd.api.dao.model.UserRegisterInfo">
+    update mpd_user_register_info
+    set telphone = #{telphone,jdbcType=DECIMAL},
+      register_time = #{registerTime,jdbcType=TIMESTAMP},
+      password = #{password,jdbcType=VARCHAR},
+      login_time = #{loginTime,jdbcType=TIMESTAMP},
+      email = #{email,jdbcType=VARCHAR},
+      login_name = #{loginName,jdbcType=VARCHAR},
+      user_source = #{userSource,jdbcType=SMALLINT},
+      login_ip = #{loginIp,jdbcType=VARCHAR},
+      login_flag = #{loginFlag,jdbcType=SMALLINT}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

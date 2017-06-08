@@ -1,0 +1,719 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mpd.api.dao.mapper.HousePropertyInfoMapper">
+  <resultMap id="BaseResultMap" type="com.mpd.api.dao.model.HousePropertyInfo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="house_card_year" jdbcType="INTEGER" property="houseCardYear" />
+    <result column="house_card_number" jdbcType="INTEGER" property="houseCardNumber" />
+    <result column="house_card_full" jdbcType="VARCHAR" property="houseCardFull" />
+    <result column="card_date" jdbcType="DATE" property="cardDate" />
+    <result column="land_no" jdbcType="VARCHAR" property="landNo" />
+    <result column="land_size" jdbcType="REAL" property="landSize" />
+    <result column="land_purpose" jdbcType="SMALLINT" property="landPurpose" />
+    <result column="land_start_date" jdbcType="DATE" property="landStartDate" />
+    <result column="land_end_date" jdbcType="DATE" property="landEndDate" />
+    <result column="land_source" jdbcType="SMALLINT" property="landSource" />
+    <result column="land_service_life" jdbcType="INTEGER" property="landServiceLife" />
+    <result column="estate_agent" jdbcType="VARCHAR" property="estateAgent" />
+    <result column="building_area" jdbcType="REAL" property="buildingArea" />
+    <result column="inner_building_area" jdbcType="REAL" property="innerBuildingArea" />
+    <result column="house_purpose" jdbcType="SMALLINT" property="housePurpose" />
+    <result column="register_price" jdbcType="DECIMAL" property="registerPrice" />
+    <result column="completion_date" jdbcType="DATE" property="completionDate" />
+    <result column="house_province" jdbcType="VARCHAR" property="houseProvince" />
+    <result column="house_city" jdbcType="VARCHAR" property="houseCity" />
+    <result column="house_area" jdbcType="VARCHAR" property="houseArea" />
+    <result column="house_detail_address" jdbcType="VARCHAR" property="houseDetailAddress" />
+    <result column="house_purchase_date" jdbcType="DATE" property="housePurchaseDate" />
+    <result column="house_register_date" jdbcType="DATE" property="houseRegisterDate" />
+    <result column="house_card_type" jdbcType="SMALLINT" property="houseCardType" />
+    <result column="house_card_photo" jdbcType="VARCHAR" property="houseCardPhoto" />
+    <result column="del_flag" jdbcType="CHAR" property="delFlag" />
+    <result column="house_type" jdbcType="SMALLINT" property="houseType" />
+    <result column="is_only_have" jdbcType="CHAR" property="isOnlyHave" />
+    <result column="house_status" jdbcType="SMALLINT" property="houseStatus" />
+    <result column="house_source" jdbcType="SMALLINT" property="houseSource" />
+    <result column="actuality" jdbcType="SMALLINT" property="actuality" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="is_only_housing" jdbcType="SMALLINT" property="isOnlyHousing" />
+    <result column="is_house_population" jdbcType="SMALLINT" property="isHousePopulation" />
+    <result column="account_name" jdbcType="VARCHAR" property="accountName" />
+    <result column="total_amount" jdbcType="VARCHAR" property="totalAmount" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, house_card_year, house_card_number, house_card_full, card_date, land_no, land_size, 
+    land_purpose, land_start_date, land_end_date, land_source, land_service_life, estate_agent, 
+    building_area, inner_building_area, house_purpose, register_price, completion_date, 
+    house_province, house_city, house_area, house_detail_address, house_purchase_date, 
+    house_register_date, house_card_type, house_card_photo, del_flag, house_type, is_only_have, 
+    house_status, house_source, actuality, create_by, is_only_housing, is_house_population, 
+    account_name, total_amount
+  </sql>
+  <select id="selectByExample" parameterType="com.mpd.api.dao.model.HousePropertyInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from mpd_house_property_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from mpd_house_property_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from mpd_house_property_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.mpd.api.dao.model.HousePropertyInfoExample">
+    delete from mpd_house_property_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mpd.api.dao.model.HousePropertyInfo">
+    insert into mpd_house_property_info (id, house_card_year, house_card_number, 
+      house_card_full, card_date, land_no, 
+      land_size, land_purpose, land_start_date, 
+      land_end_date, land_source, land_service_life, 
+      estate_agent, building_area, inner_building_area, 
+      house_purpose, register_price, completion_date, 
+      house_province, house_city, house_area, 
+      house_detail_address, house_purchase_date, house_register_date, 
+      house_card_type, house_card_photo, del_flag, 
+      house_type, is_only_have, house_status, 
+      house_source, actuality, create_by, 
+      is_only_housing, is_house_population, account_name, 
+      total_amount)
+    values (#{id,jdbcType=INTEGER}, #{houseCardYear,jdbcType=INTEGER}, #{houseCardNumber,jdbcType=INTEGER}, 
+      #{houseCardFull,jdbcType=VARCHAR}, #{cardDate,jdbcType=DATE}, #{landNo,jdbcType=VARCHAR}, 
+      #{landSize,jdbcType=REAL}, #{landPurpose,jdbcType=SMALLINT}, #{landStartDate,jdbcType=DATE}, 
+      #{landEndDate,jdbcType=DATE}, #{landSource,jdbcType=SMALLINT}, #{landServiceLife,jdbcType=INTEGER}, 
+      #{estateAgent,jdbcType=VARCHAR}, #{buildingArea,jdbcType=REAL}, #{innerBuildingArea,jdbcType=REAL}, 
+      #{housePurpose,jdbcType=SMALLINT}, #{registerPrice,jdbcType=DECIMAL}, #{completionDate,jdbcType=DATE}, 
+      #{houseProvince,jdbcType=VARCHAR}, #{houseCity,jdbcType=VARCHAR}, #{houseArea,jdbcType=VARCHAR}, 
+      #{houseDetailAddress,jdbcType=VARCHAR}, #{housePurchaseDate,jdbcType=DATE}, #{houseRegisterDate,jdbcType=DATE}, 
+      #{houseCardType,jdbcType=SMALLINT}, #{houseCardPhoto,jdbcType=VARCHAR}, #{delFlag,jdbcType=CHAR}, 
+      #{houseType,jdbcType=SMALLINT}, #{isOnlyHave,jdbcType=CHAR}, #{houseStatus,jdbcType=SMALLINT}, 
+      #{houseSource,jdbcType=SMALLINT}, #{actuality,jdbcType=SMALLINT}, #{createBy,jdbcType=VARCHAR}, 
+      #{isOnlyHousing,jdbcType=SMALLINT}, #{isHousePopulation,jdbcType=SMALLINT}, #{accountName,jdbcType=VARCHAR}, 
+      #{totalAmount,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mpd.api.dao.model.HousePropertyInfo">
+    insert into mpd_house_property_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="houseCardYear != null">
+        house_card_year,
+      </if>
+      <if test="houseCardNumber != null">
+        house_card_number,
+      </if>
+      <if test="houseCardFull != null">
+        house_card_full,
+      </if>
+      <if test="cardDate != null">
+        card_date,
+      </if>
+      <if test="landNo != null">
+        land_no,
+      </if>
+      <if test="landSize != null">
+        land_size,
+      </if>
+      <if test="landPurpose != null">
+        land_purpose,
+      </if>
+      <if test="landStartDate != null">
+        land_start_date,
+      </if>
+      <if test="landEndDate != null">
+        land_end_date,
+      </if>
+      <if test="landSource != null">
+        land_source,
+      </if>
+      <if test="landServiceLife != null">
+        land_service_life,
+      </if>
+      <if test="estateAgent != null">
+        estate_agent,
+      </if>
+      <if test="buildingArea != null">
+        building_area,
+      </if>
+      <if test="innerBuildingArea != null">
+        inner_building_area,
+      </if>
+      <if test="housePurpose != null">
+        house_purpose,
+      </if>
+      <if test="registerPrice != null">
+        register_price,
+      </if>
+      <if test="completionDate != null">
+        completion_date,
+      </if>
+      <if test="houseProvince != null">
+        house_province,
+      </if>
+      <if test="houseCity != null">
+        house_city,
+      </if>
+      <if test="houseArea != null">
+        house_area,
+      </if>
+      <if test="houseDetailAddress != null">
+        house_detail_address,
+      </if>
+      <if test="housePurchaseDate != null">
+        house_purchase_date,
+      </if>
+      <if test="houseRegisterDate != null">
+        house_register_date,
+      </if>
+      <if test="houseCardType != null">
+        house_card_type,
+      </if>
+      <if test="houseCardPhoto != null">
+        house_card_photo,
+      </if>
+      <if test="delFlag != null">
+        del_flag,
+      </if>
+      <if test="houseType != null">
+        house_type,
+      </if>
+      <if test="isOnlyHave != null">
+        is_only_have,
+      </if>
+      <if test="houseStatus != null">
+        house_status,
+      </if>
+      <if test="houseSource != null">
+        house_source,
+      </if>
+      <if test="actuality != null">
+        actuality,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="isOnlyHousing != null">
+        is_only_housing,
+      </if>
+      <if test="isHousePopulation != null">
+        is_house_population,
+      </if>
+      <if test="accountName != null">
+        account_name,
+      </if>
+      <if test="totalAmount != null">
+        total_amount,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="houseCardYear != null">
+        #{houseCardYear,jdbcType=INTEGER},
+      </if>
+      <if test="houseCardNumber != null">
+        #{houseCardNumber,jdbcType=INTEGER},
+      </if>
+      <if test="houseCardFull != null">
+        #{houseCardFull,jdbcType=VARCHAR},
+      </if>
+      <if test="cardDate != null">
+        #{cardDate,jdbcType=DATE},
+      </if>
+      <if test="landNo != null">
+        #{landNo,jdbcType=VARCHAR},
+      </if>
+      <if test="landSize != null">
+        #{landSize,jdbcType=REAL},
+      </if>
+      <if test="landPurpose != null">
+        #{landPurpose,jdbcType=SMALLINT},
+      </if>
+      <if test="landStartDate != null">
+        #{landStartDate,jdbcType=DATE},
+      </if>
+      <if test="landEndDate != null">
+        #{landEndDate,jdbcType=DATE},
+      </if>
+      <if test="landSource != null">
+        #{landSource,jdbcType=SMALLINT},
+      </if>
+      <if test="landServiceLife != null">
+        #{landServiceLife,jdbcType=INTEGER},
+      </if>
+      <if test="estateAgent != null">
+        #{estateAgent,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingArea != null">
+        #{buildingArea,jdbcType=REAL},
+      </if>
+      <if test="innerBuildingArea != null">
+        #{innerBuildingArea,jdbcType=REAL},
+      </if>
+      <if test="housePurpose != null">
+        #{housePurpose,jdbcType=SMALLINT},
+      </if>
+      <if test="registerPrice != null">
+        #{registerPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="completionDate != null">
+        #{completionDate,jdbcType=DATE},
+      </if>
+      <if test="houseProvince != null">
+        #{houseProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="houseCity != null">
+        #{houseCity,jdbcType=VARCHAR},
+      </if>
+      <if test="houseArea != null">
+        #{houseArea,jdbcType=VARCHAR},
+      </if>
+      <if test="houseDetailAddress != null">
+        #{houseDetailAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="housePurchaseDate != null">
+        #{housePurchaseDate,jdbcType=DATE},
+      </if>
+      <if test="houseRegisterDate != null">
+        #{houseRegisterDate,jdbcType=DATE},
+      </if>
+      <if test="houseCardType != null">
+        #{houseCardType,jdbcType=SMALLINT},
+      </if>
+      <if test="houseCardPhoto != null">
+        #{houseCardPhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null">
+        #{delFlag,jdbcType=CHAR},
+      </if>
+      <if test="houseType != null">
+        #{houseType,jdbcType=SMALLINT},
+      </if>
+      <if test="isOnlyHave != null">
+        #{isOnlyHave,jdbcType=CHAR},
+      </if>
+      <if test="houseStatus != null">
+        #{houseStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="houseSource != null">
+        #{houseSource,jdbcType=SMALLINT},
+      </if>
+      <if test="actuality != null">
+        #{actuality,jdbcType=SMALLINT},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="isOnlyHousing != null">
+        #{isOnlyHousing,jdbcType=SMALLINT},
+      </if>
+      <if test="isHousePopulation != null">
+        #{isHousePopulation,jdbcType=SMALLINT},
+      </if>
+      <if test="accountName != null">
+        #{accountName,jdbcType=VARCHAR},
+      </if>
+      <if test="totalAmount != null">
+        #{totalAmount,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mpd.api.dao.model.HousePropertyInfoExample" resultType="java.lang.Long">
+    select count(*) from mpd_house_property_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update mpd_house_property_info
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.houseCardYear != null">
+        house_card_year = #{record.houseCardYear,jdbcType=INTEGER},
+      </if>
+      <if test="record.houseCardNumber != null">
+        house_card_number = #{record.houseCardNumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.houseCardFull != null">
+        house_card_full = #{record.houseCardFull,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cardDate != null">
+        card_date = #{record.cardDate,jdbcType=DATE},
+      </if>
+      <if test="record.landNo != null">
+        land_no = #{record.landNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.landSize != null">
+        land_size = #{record.landSize,jdbcType=REAL},
+      </if>
+      <if test="record.landPurpose != null">
+        land_purpose = #{record.landPurpose,jdbcType=SMALLINT},
+      </if>
+      <if test="record.landStartDate != null">
+        land_start_date = #{record.landStartDate,jdbcType=DATE},
+      </if>
+      <if test="record.landEndDate != null">
+        land_end_date = #{record.landEndDate,jdbcType=DATE},
+      </if>
+      <if test="record.landSource != null">
+        land_source = #{record.landSource,jdbcType=SMALLINT},
+      </if>
+      <if test="record.landServiceLife != null">
+        land_service_life = #{record.landServiceLife,jdbcType=INTEGER},
+      </if>
+      <if test="record.estateAgent != null">
+        estate_agent = #{record.estateAgent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buildingArea != null">
+        building_area = #{record.buildingArea,jdbcType=REAL},
+      </if>
+      <if test="record.innerBuildingArea != null">
+        inner_building_area = #{record.innerBuildingArea,jdbcType=REAL},
+      </if>
+      <if test="record.housePurpose != null">
+        house_purpose = #{record.housePurpose,jdbcType=SMALLINT},
+      </if>
+      <if test="record.registerPrice != null">
+        register_price = #{record.registerPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.completionDate != null">
+        completion_date = #{record.completionDate,jdbcType=DATE},
+      </if>
+      <if test="record.houseProvince != null">
+        house_province = #{record.houseProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="record.houseCity != null">
+        house_city = #{record.houseCity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.houseArea != null">
+        house_area = #{record.houseArea,jdbcType=VARCHAR},
+      </if>
+      <if test="record.houseDetailAddress != null">
+        house_detail_address = #{record.houseDetailAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.housePurchaseDate != null">
+        house_purchase_date = #{record.housePurchaseDate,jdbcType=DATE},
+      </if>
+      <if test="record.houseRegisterDate != null">
+        house_register_date = #{record.houseRegisterDate,jdbcType=DATE},
+      </if>
+      <if test="record.houseCardType != null">
+        house_card_type = #{record.houseCardType,jdbcType=SMALLINT},
+      </if>
+      <if test="record.houseCardPhoto != null">
+        house_card_photo = #{record.houseCardPhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="record.delFlag != null">
+        del_flag = #{record.delFlag,jdbcType=CHAR},
+      </if>
+      <if test="record.houseType != null">
+        house_type = #{record.houseType,jdbcType=SMALLINT},
+      </if>
+      <if test="record.isOnlyHave != null">
+        is_only_have = #{record.isOnlyHave,jdbcType=CHAR},
+      </if>
+      <if test="record.houseStatus != null">
+        house_status = #{record.houseStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="record.houseSource != null">
+        house_source = #{record.houseSource,jdbcType=SMALLINT},
+      </if>
+      <if test="record.actuality != null">
+        actuality = #{record.actuality,jdbcType=SMALLINT},
+      </if>
+      <if test="record.createBy != null">
+        create_by = #{record.createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isOnlyHousing != null">
+        is_only_housing = #{record.isOnlyHousing,jdbcType=SMALLINT},
+      </if>
+      <if test="record.isHousePopulation != null">
+        is_house_population = #{record.isHousePopulation,jdbcType=SMALLINT},
+      </if>
+      <if test="record.accountName != null">
+        account_name = #{record.accountName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.totalAmount != null">
+        total_amount = #{record.totalAmount,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update mpd_house_property_info
+    set id = #{record.id,jdbcType=INTEGER},
+      house_card_year = #{record.houseCardYear,jdbcType=INTEGER},
+      house_card_number = #{record.houseCardNumber,jdbcType=INTEGER},
+      house_card_full = #{record.houseCardFull,jdbcType=VARCHAR},
+      card_date = #{record.cardDate,jdbcType=DATE},
+      land_no = #{record.landNo,jdbcType=VARCHAR},
+      land_size = #{record.landSize,jdbcType=REAL},
+      land_purpose = #{record.landPurpose,jdbcType=SMALLINT},
+      land_start_date = #{record.landStartDate,jdbcType=DATE},
+      land_end_date = #{record.landEndDate,jdbcType=DATE},
+      land_source = #{record.landSource,jdbcType=SMALLINT},
+      land_service_life = #{record.landServiceLife,jdbcType=INTEGER},
+      estate_agent = #{record.estateAgent,jdbcType=VARCHAR},
+      building_area = #{record.buildingArea,jdbcType=REAL},
+      inner_building_area = #{record.innerBuildingArea,jdbcType=REAL},
+      house_purpose = #{record.housePurpose,jdbcType=SMALLINT},
+      register_price = #{record.registerPrice,jdbcType=DECIMAL},
+      completion_date = #{record.completionDate,jdbcType=DATE},
+      house_province = #{record.houseProvince,jdbcType=VARCHAR},
+      house_city = #{record.houseCity,jdbcType=VARCHAR},
+      house_area = #{record.houseArea,jdbcType=VARCHAR},
+      house_detail_address = #{record.houseDetailAddress,jdbcType=VARCHAR},
+      house_purchase_date = #{record.housePurchaseDate,jdbcType=DATE},
+      house_register_date = #{record.houseRegisterDate,jdbcType=DATE},
+      house_card_type = #{record.houseCardType,jdbcType=SMALLINT},
+      house_card_photo = #{record.houseCardPhoto,jdbcType=VARCHAR},
+      del_flag = #{record.delFlag,jdbcType=CHAR},
+      house_type = #{record.houseType,jdbcType=SMALLINT},
+      is_only_have = #{record.isOnlyHave,jdbcType=CHAR},
+      house_status = #{record.houseStatus,jdbcType=SMALLINT},
+      house_source = #{record.houseSource,jdbcType=SMALLINT},
+      actuality = #{record.actuality,jdbcType=SMALLINT},
+      create_by = #{record.createBy,jdbcType=VARCHAR},
+      is_only_housing = #{record.isOnlyHousing,jdbcType=SMALLINT},
+      is_house_population = #{record.isHousePopulation,jdbcType=SMALLINT},
+      account_name = #{record.accountName,jdbcType=VARCHAR},
+      total_amount = #{record.totalAmount,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mpd.api.dao.model.HousePropertyInfo">
+    update mpd_house_property_info
+    <set>
+      <if test="houseCardYear != null">
+        house_card_year = #{houseCardYear,jdbcType=INTEGER},
+      </if>
+      <if test="houseCardNumber != null">
+        house_card_number = #{houseCardNumber,jdbcType=INTEGER},
+      </if>
+      <if test="houseCardFull != null">
+        house_card_full = #{houseCardFull,jdbcType=VARCHAR},
+      </if>
+      <if test="cardDate != null">
+        card_date = #{cardDate,jdbcType=DATE},
+      </if>
+      <if test="landNo != null">
+        land_no = #{landNo,jdbcType=VARCHAR},
+      </if>
+      <if test="landSize != null">
+        land_size = #{landSize,jdbcType=REAL},
+      </if>
+      <if test="landPurpose != null">
+        land_purpose = #{landPurpose,jdbcType=SMALLINT},
+      </if>
+      <if test="landStartDate != null">
+        land_start_date = #{landStartDate,jdbcType=DATE},
+      </if>
+      <if test="landEndDate != null">
+        land_end_date = #{landEndDate,jdbcType=DATE},
+      </if>
+      <if test="landSource != null">
+        land_source = #{landSource,jdbcType=SMALLINT},
+      </if>
+      <if test="landServiceLife != null">
+        land_service_life = #{landServiceLife,jdbcType=INTEGER},
+      </if>
+      <if test="estateAgent != null">
+        estate_agent = #{estateAgent,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingArea != null">
+        building_area = #{buildingArea,jdbcType=REAL},
+      </if>
+      <if test="innerBuildingArea != null">
+        inner_building_area = #{innerBuildingArea,jdbcType=REAL},
+      </if>
+      <if test="housePurpose != null">
+        house_purpose = #{housePurpose,jdbcType=SMALLINT},
+      </if>
+      <if test="registerPrice != null">
+        register_price = #{registerPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="completionDate != null">
+        completion_date = #{completionDate,jdbcType=DATE},
+      </if>
+      <if test="houseProvince != null">
+        house_province = #{houseProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="houseCity != null">
+        house_city = #{houseCity,jdbcType=VARCHAR},
+      </if>
+      <if test="houseArea != null">
+        house_area = #{houseArea,jdbcType=VARCHAR},
+      </if>
+      <if test="houseDetailAddress != null">
+        house_detail_address = #{houseDetailAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="housePurchaseDate != null">
+        house_purchase_date = #{housePurchaseDate,jdbcType=DATE},
+      </if>
+      <if test="houseRegisterDate != null">
+        house_register_date = #{houseRegisterDate,jdbcType=DATE},
+      </if>
+      <if test="houseCardType != null">
+        house_card_type = #{houseCardType,jdbcType=SMALLINT},
+      </if>
+      <if test="houseCardPhoto != null">
+        house_card_photo = #{houseCardPhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null">
+        del_flag = #{delFlag,jdbcType=CHAR},
+      </if>
+      <if test="houseType != null">
+        house_type = #{houseType,jdbcType=SMALLINT},
+      </if>
+      <if test="isOnlyHave != null">
+        is_only_have = #{isOnlyHave,jdbcType=CHAR},
+      </if>
+      <if test="houseStatus != null">
+        house_status = #{houseStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="houseSource != null">
+        house_source = #{houseSource,jdbcType=SMALLINT},
+      </if>
+      <if test="actuality != null">
+        actuality = #{actuality,jdbcType=SMALLINT},
+      </if>
+      <if test="createBy != null">
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="isOnlyHousing != null">
+        is_only_housing = #{isOnlyHousing,jdbcType=SMALLINT},
+      </if>
+      <if test="isHousePopulation != null">
+        is_house_population = #{isHousePopulation,jdbcType=SMALLINT},
+      </if>
+      <if test="accountName != null">
+        account_name = #{accountName,jdbcType=VARCHAR},
+      </if>
+      <if test="totalAmount != null">
+        total_amount = #{totalAmount,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mpd.api.dao.model.HousePropertyInfo">
+    update mpd_house_property_info
+    set house_card_year = #{houseCardYear,jdbcType=INTEGER},
+      house_card_number = #{houseCardNumber,jdbcType=INTEGER},
+      house_card_full = #{houseCardFull,jdbcType=VARCHAR},
+      card_date = #{cardDate,jdbcType=DATE},
+      land_no = #{landNo,jdbcType=VARCHAR},
+      land_size = #{landSize,jdbcType=REAL},
+      land_purpose = #{landPurpose,jdbcType=SMALLINT},
+      land_start_date = #{landStartDate,jdbcType=DATE},
+      land_end_date = #{landEndDate,jdbcType=DATE},
+      land_source = #{landSource,jdbcType=SMALLINT},
+      land_service_life = #{landServiceLife,jdbcType=INTEGER},
+      estate_agent = #{estateAgent,jdbcType=VARCHAR},
+      building_area = #{buildingArea,jdbcType=REAL},
+      inner_building_area = #{innerBuildingArea,jdbcType=REAL},
+      house_purpose = #{housePurpose,jdbcType=SMALLINT},
+      register_price = #{registerPrice,jdbcType=DECIMAL},
+      completion_date = #{completionDate,jdbcType=DATE},
+      house_province = #{houseProvince,jdbcType=VARCHAR},
+      house_city = #{houseCity,jdbcType=VARCHAR},
+      house_area = #{houseArea,jdbcType=VARCHAR},
+      house_detail_address = #{houseDetailAddress,jdbcType=VARCHAR},
+      house_purchase_date = #{housePurchaseDate,jdbcType=DATE},
+      house_register_date = #{houseRegisterDate,jdbcType=DATE},
+      house_card_type = #{houseCardType,jdbcType=SMALLINT},
+      house_card_photo = #{houseCardPhoto,jdbcType=VARCHAR},
+      del_flag = #{delFlag,jdbcType=CHAR},
+      house_type = #{houseType,jdbcType=SMALLINT},
+      is_only_have = #{isOnlyHave,jdbcType=CHAR},
+      house_status = #{houseStatus,jdbcType=SMALLINT},
+      house_source = #{houseSource,jdbcType=SMALLINT},
+      actuality = #{actuality,jdbcType=SMALLINT},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      is_only_housing = #{isOnlyHousing,jdbcType=SMALLINT},
+      is_house_population = #{isHousePopulation,jdbcType=SMALLINT},
+      account_name = #{accountName,jdbcType=VARCHAR},
+      total_amount = #{totalAmount,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

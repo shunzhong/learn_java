@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mpd.api.dao.mapper.UserContactsInfoMapper">
+  <resultMap id="BaseResultMap" type="com.mpd.api.dao.model.UserContactsInfo">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="contract_name" jdbcType="VARCHAR" property="contractName" />
+    <result column="contract_telphone" jdbcType="DECIMAL" property="contractTelphone" />
+    <result column="contract_address" jdbcType="VARCHAR" property="contractAddress" />
+    <result column="relation_type" jdbcType="SMALLINT" property="relationType" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, contract_name, contract_telphone, contract_address, relation_type
+  </sql>
+  <select id="selectByExample" parameterType="com.mpd.api.dao.model.UserContactsInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from mpd_user_contacts_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from mpd_user_contacts_info
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from mpd_user_contacts_info
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.mpd.api.dao.model.UserContactsInfoExample">
+    delete from mpd_user_contacts_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mpd.api.dao.model.UserContactsInfo">
+    insert into mpd_user_contacts_info (id, contract_name, contract_telphone, 
+      contract_address, relation_type)
+    values (#{id,jdbcType=VARCHAR}, #{contractName,jdbcType=VARCHAR}, #{contractTelphone,jdbcType=DECIMAL}, 
+      #{contractAddress,jdbcType=VARCHAR}, #{relationType,jdbcType=SMALLINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mpd.api.dao.model.UserContactsInfo">
+    insert into mpd_user_contacts_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="contractName != null">
+        contract_name,
+      </if>
+      <if test="contractTelphone != null">
+        contract_telphone,
+      </if>
+      <if test="contractAddress != null">
+        contract_address,
+      </if>
+      <if test="relationType != null">
+        relation_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="contractName != null">
+        #{contractName,jdbcType=VARCHAR},
+      </if>
+      <if test="contractTelphone != null">
+        #{contractTelphone,jdbcType=DECIMAL},
+      </if>
+      <if test="contractAddress != null">
+        #{contractAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="relationType != null">
+        #{relationType,jdbcType=SMALLINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mpd.api.dao.model.UserContactsInfoExample" resultType="java.lang.Long">
+    select count(*) from mpd_user_contacts_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update mpd_user_contacts_info
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contractName != null">
+        contract_name = #{record.contractName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contractTelphone != null">
+        contract_telphone = #{record.contractTelphone,jdbcType=DECIMAL},
+      </if>
+      <if test="record.contractAddress != null">
+        contract_address = #{record.contractAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.relationType != null">
+        relation_type = #{record.relationType,jdbcType=SMALLINT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update mpd_user_contacts_info
+    set id = #{record.id,jdbcType=VARCHAR},
+      contract_name = #{record.contractName,jdbcType=VARCHAR},
+      contract_telphone = #{record.contractTelphone,jdbcType=DECIMAL},
+      contract_address = #{record.contractAddress,jdbcType=VARCHAR},
+      relation_type = #{record.relationType,jdbcType=SMALLINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mpd.api.dao.model.UserContactsInfo">
+    update mpd_user_contacts_info
+    <set>
+      <if test="contractName != null">
+        contract_name = #{contractName,jdbcType=VARCHAR},
+      </if>
+      <if test="contractTelphone != null">
+        contract_telphone = #{contractTelphone,jdbcType=DECIMAL},
+      </if>
+      <if test="contractAddress != null">
+        contract_address = #{contractAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="relationType != null">
+        relation_type = #{relationType,jdbcType=SMALLINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mpd.api.dao.model.UserContactsInfo">
+    update mpd_user_contacts_info
+    set contract_name = #{contractName,jdbcType=VARCHAR},
+      contract_telphone = #{contractTelphone,jdbcType=DECIMAL},
+      contract_address = #{contractAddress,jdbcType=VARCHAR},
+      relation_type = #{relationType,jdbcType=SMALLINT}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
