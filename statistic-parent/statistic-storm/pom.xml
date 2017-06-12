@@ -5,35 +5,35 @@
 
   <parent>
       <groupId>com.github</groupId>
-      <artifactId>stat-parent</artifactId>
+      <artifactId>statistic-parent</artifactId>
       <version>1.0</version>
   </parent>
   <groupId>com.github</groupId>
-  <artifactId>stat-com.github.learn.storm</artifactId>
+  <artifactId>statistic-storm</artifactId>
   <version>1.0</version>
-  <name>stat-com.github.learn.storm</name>
+  <name>statistic-storm</name>
   <url>http://maven.apache.org</url>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
-  <dependencies>
+    <dependencies>
         <dependency>
-            <groupId>org.apache.com.github.learn.storm</groupId>
-            <artifactId>com.github.learn.storm-core</artifactId>
+            <groupId>org.apache.storm</groupId>
+            <artifactId>storm-core</artifactId>
             <version>0.9.3</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
-            <groupId>org.apache.com.github.learn.storm</groupId>
-            <artifactId>com.github.learn.storm-com.github.learn.kafka</artifactId>
+            <groupId>org.apache.storm</groupId>
+            <artifactId>storm-kafka</artifactId>
             <version>0.9.3</version>
             <!--<scope>provided</scope>-->
         </dependency>
 
-        <!-- com.github.learn.kafka -->
+        <!-- kafka -->
         <dependency>
-            <groupId>org.apache.com.github.learn.kafka</groupId>
+            <groupId>org.apache.kafka</groupId>
             <artifactId>kafka_2.11</artifactId>
             <version>0.8.2.2</version>
             <exclusions>
@@ -55,13 +55,11 @@
             <version>5.1.18</version>
         </dependency>
 
-		<dependency>
+        <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
             <version>1.2.8</version>
         </dependency>
-        
-        
-        
+
     </dependencies>
 </project>

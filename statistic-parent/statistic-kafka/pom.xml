@@ -4,13 +4,13 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>com.github</groupId>
-    <artifactId>stat-parent</artifactId>
+    <artifactId>statistic-parent</artifactId>
     <version>1.0</version>
   </parent>
   <groupId>com.github</groupId>
-  <artifactId>stat-com.github.learn.kafka</artifactId>
+  <artifactId>statistic-kafka</artifactId>
   <version>1.0</version>
-  <name>stat-com.github.learn.kafka</name>
+  <name>statistic-kafka</name>
   <url>http://maven.apache.org</url>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -18,9 +18,11 @@
  <dependencies>
 	<!-- com.github.learn.kafka -->
 	<dependency>
-	    <groupId>org.apache.com.github.learn.kafka</groupId>
+	    <groupId>org.apache.kafka</groupId>
 	    <artifactId>kafka_2.11</artifactId>
 	    <version>0.8.2.2</version>
 	</dependency>
     </dependencies>
+
+
 </project>

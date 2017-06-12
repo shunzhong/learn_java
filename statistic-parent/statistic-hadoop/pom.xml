@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>com.github</groupId>
-    <artifactId>stat-parent</artifactId>
+    <artifactId>statistic-parent</artifactId>
     <version>1.0</version>
   </parent>
   <groupId>com.github</groupId>
@@ -24,7 +24,7 @@
 
         <dependency>
             <groupId>org.apache.hadoop</groupId>
-            <artifactId>hadoop-com.github.learn.hadoop.hdfs</artifactId>
+            <artifactId>hadoop-hdfs</artifactId>
             <version>2.6.0</version>
         </dependency>
 
