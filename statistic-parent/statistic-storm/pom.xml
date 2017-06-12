@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+      <groupId>com.github</groupId>
+      <artifactId>stat-parent</artifactId>
+      <version>1.0</version>
+  </parent>
+  <groupId>com.github</groupId>
+  <artifactId>stat-com.github.learn.storm</artifactId>
+  <version>1.0</version>
+  <name>stat-com.github.learn.storm</name>
+  <url>http://maven.apache.org</url>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  <dependencies>
+        <dependency>
+            <groupId>org.apache.com.github.learn.storm</groupId>
+            <artifactId>com.github.learn.storm-core</artifactId>
+            <version>0.9.3</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.com.github.learn.storm</groupId>
+            <artifactId>com.github.learn.storm-com.github.learn.kafka</artifactId>
+            <version>0.9.3</version>
+            <!--<scope>provided</scope>-->
+        </dependency>
+
+        <!-- com.github.learn.kafka -->
+        <dependency>
+            <groupId>org.apache.com.github.learn.kafka</groupId>
+            <artifactId>kafka_2.11</artifactId>
+            <version>0.8.2.2</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.zookeeper</groupId>
+                    <artifactId>zookeeper</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>log4j</groupId>
+                    <artifactId>log4j</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!--mysql connection-->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.18</version>
+        </dependency>
+
+		<dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.8</version>
+        </dependency>
+        
+        
+        
+    </dependencies>
+</project>
