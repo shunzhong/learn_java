@@ -12,7 +12,7 @@ public class DrpcClient {
 		DRPCClient drpcClient = new DRPCClient("192.168.1.171", 3772);
 		String result;
 		try {
-			//执行hello功能，传递的参数是storm
+			//执行hello功能，传递的参数是storml
 			result = drpcClient.execute("hello", "jsdhasjkhdkh");
 			System.out.println(result);
 		} catch (TException e) {

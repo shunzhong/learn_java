@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:rop="http://www.rop.com/schema/rop"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd http://www.springframework.org/schema/tx
+	http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd
+    http://www.rop.com/schema/rop http://www.rop.com/schema/rop/rop-1.0.xsd">
+
+
+    <context:component-scan base-package="com.mpd.api.rest"/>
+    <!-- 启动Rop框架 -->
+    <rop:annotation-driven
+        id="router"
+        session-manager="mpdSessionManager"
+        app-secret-manager="appSecretManager"
+        service-access-controller="serviceAccessController"
+        formatting-conversion-service="conversionService"
+        ext-error-base-names="i18n/rop/sampleRopError,i18n/rop/sampleRopError1"
+        service-timeout-seconds="10"
+        invoke-times-controller="invokeTimesController"
+        upload-file-max-size="10"
+        upload-file-types="png,gif"
+        core-pool-size="200"
+        max-pool-size="500"
+        queue-capacity="50"
+        keep-alive-seconds="300"
+        sign-enable="false"/> <!--rop 签名关闭-->
+
+	<!-- Sample -->
+    <bean id="mpdSessionManager" class="com.mpd.api.rest.security.MpdSessionManager" />
+    <bean id="invokeTimesController" class="com.mpd.api.rest.security.MpdInvokeTimesController"/>
+    <bean id="appSecretManager" class="com.mpd.api.rest.security.MpdAppSecretManager"/>
+    <bean id="serviceAccessController" class="com.mpd.api.rest.security.MpdServiceAccessController"/>
+
+
+
+    <!--设置自定义的类型转换服务，注册自定义的类型转换器-->
+    <bean id="conversionService"
+          class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+        <property name="converters">
+            <set>
+                <!--将xxxx-yyyyyyy格式的电话转换为内部的Telephone对象-->
+                <bean class="com.mpd.api.rest.converter.TelephoneConverter"/>
+                <bean class="com.mpd.api.rest.converter.DateConverter"/>
+            </set>
+        </property>
+    </bean>
+
+    <!--注册监听器，可配置多具-->
+   <!-- <rop:listeners>
+        <bean class="com.mpd.api.rest.security.MpdPostInitializeEventListener"/>
+        <bean class="com.mpd.api.rest.security.MpdPreDoServiceEventListener"/>
+        <bean class="com.mpd.api.rest.security.MpdAfterDoServiceEventListener"/>
+    </rop:listeners>-->
+
+    <!--自定义method,appKey等这些系统级参数的参数名-->
+    <rop:sysparams
+            format-param-name="messageFormat"
+            jsonp-param-name="__invoke"/>
+
+</beans>

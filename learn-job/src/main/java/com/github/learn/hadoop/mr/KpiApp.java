@@ -107,7 +107,6 @@ class KpiWritable implements Writable{
 	}
 	
 	
-	@Override
 	public void readFields(DataInput in) throws IOException {
 		this.upPackNum = in.readLong();
 		this.downPackNum = in.readLong();
@@ -115,7 +114,6 @@ class KpiWritable implements Writable{
 		this.downPayLoad = in.readLong();
 	}
 
-	@Override
 	public void write(DataOutput out) throws IOException {
 		out.writeLong(upPackNum);
 		out.writeLong(downPackNum);
@@ -123,7 +121,6 @@ class KpiWritable implements Writable{
 		out.writeLong(downPayLoad);
 	}
 	
-	@Override
 	public String toString() {
 		return upPackNum + "\t" + downPackNum + "\t" + upPayLoad + "\t" + downPayLoad;
 	}
