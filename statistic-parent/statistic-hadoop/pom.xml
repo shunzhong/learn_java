@@ -8,9 +8,9 @@
     <version>1.0</version>
   </parent>
   <groupId>com.github</groupId>
-  <artifactId>stat-hadoop</artifactId>
+  <artifactId>statistic-hadoop</artifactId>
   <version>1.0</version>
-  <name>stat-hadoop</name>
+  <name>statistic-hadoop</name>
   <url>http://maven.apache.org</url>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
