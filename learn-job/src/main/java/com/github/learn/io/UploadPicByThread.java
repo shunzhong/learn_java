@@ -1,4 +1,4 @@
-package com.github.learn.ionio;
+package com.github.learn.io;
 
 /*
 需求：上传图片。

@@ -1,4 +1,4 @@
-package com.github.learn.ionio;
+package com.github.learn.io;
 
 class Resource {
 	private boolean flag = false;

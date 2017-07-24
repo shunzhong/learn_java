@@ -1,4 +1,4 @@
-package com.github.learn.ionio;
+package com.github.learn.io;
 
 /*
 编写一个聊天程序。

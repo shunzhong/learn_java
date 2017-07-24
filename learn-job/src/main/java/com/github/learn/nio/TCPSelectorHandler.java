@@ -1,4 +1,4 @@
-package com.github.learn.ionio;
+package com.github.learn.nio;
 
 import java.nio.channels.SelectionKey;
 import java.nio.channels.SocketChannel;

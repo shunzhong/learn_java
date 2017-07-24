@@ -1,4 +1,4 @@
-package com.github.learn.ionio;
+package com.github.learn.io;
 import java.util.concurrent.locks.*;
 class Resource2 {
 	private boolean flag = false;

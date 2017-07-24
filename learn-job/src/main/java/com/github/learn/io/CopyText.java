@@ -1,5 +1,5 @@
 
-package com.github.learn.ionio;
+package com.github.learn.io;
 //将C盘一个文本文件复制到D盘。
 
 /*
