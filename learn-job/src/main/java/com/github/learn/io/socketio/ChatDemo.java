@@ -1,4 +1,4 @@
-package com.github.learn.io;
+package com.github.learn.io.socketio;
 
 /*
 编写一个聊天程序。

@@ -1,4 +1,4 @@
-package com.github.learn.io;
+package com.github.learn.io.socketio;
 
 /*
 需求：上传图片。
