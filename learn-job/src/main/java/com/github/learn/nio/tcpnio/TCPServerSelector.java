@@ -1,6 +1,6 @@
-package com.github.learn.nio;
+package com.github.learn.nio.tcpnio;
 
-import java.io.IOException;  
+import java.io.IOException;
 import java.net.InetSocketAddress;  
 import java.nio.channels.SelectionKey;  
 import java.nio.channels.Selector;  
@@ -36,7 +36,7 @@ public class TCPServerSelector{
             listnChannel.register(selector, SelectionKey.OP_ACCEPT);  
         }  
         //创建一个实现了协议接口的对象  
-        SelectorHandler handler = new TCPSelectorHandler(BUFSIZE);  
+        SelectorHandler handler = new TCPSelectorHandler(BUFSIZE);
         
         
         //不断轮询select方法，获取准备好的信道所关联的Key集  

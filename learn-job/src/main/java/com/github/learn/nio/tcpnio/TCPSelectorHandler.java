@@ -1,4 +1,4 @@
-package com.github.learn.nio;
+package com.github.learn.nio.tcpnio;
 
 import java.nio.channels.SelectionKey;
 import java.nio.channels.SocketChannel;

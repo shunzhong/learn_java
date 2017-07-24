@@ -1,4 +1,4 @@
-package com.github.learn.nio;
+package com.github.learn.nio.tcpnio;
 
 import java.net.InetSocketAddress;  
 import java.net.SocketException;  
