@@ -83,20 +83,20 @@ class PicClient {
 
 class PicThread implements Runnable {
 
-	private Socket s;
+	private Socket clientSocket;
 
-	PicThread(Socket s) {
-		this.s = s;
+	PicThread(Socket clientSocket) {
+		this.clientSocket = clientSocket;
 	}
 
 	public void run() {
 
 		int count = 1;
-		String ip = s.getInetAddress().getHostAddress();
+		String ip = clientSocket.getInetAddress().getHostAddress();
 		try {
 			System.out.println(ip + "....connected");
 
-			InputStream in = s.getInputStream();
+			InputStream in = clientSocket.getInputStream();
 
 			File dir = new File("d:\\pic");
 
@@ -114,13 +114,13 @@ class PicThread implements Runnable {
 				fos.write(buf, 0, len);
 			}
 
-			OutputStream out = s.getOutputStream();
+			OutputStream out = clientSocket.getOutputStream();
 
 			out.write("上传成功".getBytes());
 
 			fos.close();
 
-			s.close();
+			clientSocket.close();
 		} catch (Exception e) {
 			throw new RuntimeException(ip + "上传失败");
 		}
