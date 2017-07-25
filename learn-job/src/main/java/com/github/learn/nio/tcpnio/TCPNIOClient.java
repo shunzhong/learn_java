@@ -2,29 +2,31 @@ package com.github.learn.nio.tcpnio;
 
 import java.net.InetSocketAddress;  
 import java.net.SocketException;  
-import java.nio.ByteBuffer;  
-import java.nio.channels.SocketChannel;  
+import java.nio.ByteBuffer;
+import java.nio.channels.SocketChannel;
 
 /**
- * 基于 NIO 的 TCP 通信的 Demo，客户端发送一串字符串到服务端，服务端将该字符串原原本本地反馈给客户端
+ * 基于 NIO 的 TCP 通信的 Demo，
+ * 客户端发送一串字符串到服务端，
+ * 服务端将该字符串原原本本地反馈给客户端
  * @author Richard
  *
  */
 public class TCPNIOClient {  
     public static void main(String args[]) throws Exception{  
         if ((args.length < 2) || (args.length > 3))   
-        throw new IllegalArgumentException("参数不正确");  
+            throw new IllegalArgumentException("参数不正确");
         //第一个参数作为要连接的服务端的主机名或IP  
         String server = args[0];   
         //第二个参数为要发送到服务端的字符串  
         byte[] argument = args[1].getBytes();  
         //如果有第三个参数，则作为端口号，如果没有，则端口号设为7  
         int servPort = (args.length == 3) ? Integer.parseInt(args[2]) : 7;  
-        //创建一个信道，并设为非阻塞模式  
-        SocketChannel clntChan = SocketChannel.open();  
+        //创建一个信道，并设为非阻塞模式
+        SocketChannel clntChan = SocketChannel.open();
         clntChan.configureBlocking(false);  
         //向服务端发起连接  
-        if (!clntChan.connect(new InetSocketAddress(server, servPort))){  
+        if (!clntChan.connect(new InetSocketAddress(server, servPort))){
             //不断地轮询连接状态，直到完成连接  
             while (!clntChan.finishConnect()){  
                 //在等待连接的时间里，可以执行其他任务，以充分发挥非阻塞IO的异步特性  
@@ -32,14 +34,14 @@ public class TCPNIOClient {
                 System.out.print(".");    
             }  
         }  
-        //为了与后面打印的"."区别开来，这里输出换行符  
+        //连接完成。为了与后面打印的"."区别开来，这里输出换行符
         System.out.print("\n");  
         //分别实例化用来读写的缓冲区  
         ByteBuffer writeBuf = ByteBuffer.wrap(argument);  
         ByteBuffer readBuf = ByteBuffer.allocate(argument.length);  
         //接收到的总的字节数  
         int totalBytesRcvd = 0;   
-        //每一次调用read（）方法接收到的字节数  
+        //单次调用read（）方法接收到的字节数
         int bytesRcvd;   
         //循环执行，直到接收到的字节数与发送的字符串的字节数相等  
         while (totalBytesRcvd < argument.length){  
