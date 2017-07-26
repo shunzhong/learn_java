@@ -3,9 +3,11 @@ package com.github.io.socketio;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 /**
  * BIO服务端源码
- * @author yangtao__anxpp.com
  * @version 1.0
  */
 public final class ServerNormal {
@@ -21,6 +23,8 @@ public final class ServerNormal {
     //这个方法不会被大量并发访问，不太需要考虑效率，直接进行方法同步就行了
     public synchronized static void start(int port) throws IOException{
         if(server != null) return;
+
+        ExecutorService executorService = Executors.newCachedThreadPool();
         try{
             //通过构造函数创建ServerSocket
             //如果端口合法且空闲，服务端就监听成功
@@ -32,7 +36,7 @@ public final class ServerNormal {
                 Socket socket = server.accept();
                 //当有新的客户端接入时，会执行下面的代码
                 //然后创建一个新的线程处理这条Socket链路
-                new Thread(new ServerHandler(socket)).start();
+                executorService.execute(new ServerHandler(socket));
             }
         }finally{
             //一些必要的清理工作

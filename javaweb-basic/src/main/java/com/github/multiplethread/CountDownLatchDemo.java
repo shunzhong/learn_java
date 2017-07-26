@@ -15,7 +15,6 @@ public class CountDownLatchDemo {
 		for (int i = 0; i < 4; i++) {
 			new Thread(new Runnable() {// 运动员
 
-				@Override
 				public void run() {
 					try {
 						cdl1.await(); // 等待计数器变为0
@@ -33,7 +32,6 @@ public class CountDownLatchDemo {
 
 		Thread t = new Thread(new Runnable() {// 发布命令的裁判
 
-			@Override
 			public void run() {
 				System.out.println("准备");
 				for (int i = 3; i >= 1; i--) {
@@ -53,7 +51,6 @@ public class CountDownLatchDemo {
 
 		new Thread(new Runnable() {// 宣布成绩的裁判
 
-			@Override
 			public void run() {
 				try {
 					cdl2.await();

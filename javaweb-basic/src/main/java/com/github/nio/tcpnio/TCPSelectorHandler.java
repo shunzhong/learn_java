@@ -26,6 +26,8 @@ public class TCPSelectorHandler implements SelectorHandler {
 		SocketChannel clntChan = (SocketChannel) key.channel();
 		// 获取该信道所关联的附件，这里为缓冲区
 		ByteBuffer buf = (ByteBuffer) key.attachment();
+
+		// ??? 可以成功读取？
 		long bytesRead = clntChan.read(buf);
 		// 如果read（）方法返回-1，说明客户端关闭了连接，那么客户端已经接收到了与自己发送字节数相等的数据，可以安全地关闭
 		if (bytesRead == -1) {

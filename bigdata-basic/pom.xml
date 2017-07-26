@@ -4,7 +4,7 @@
 	<groupId>com.github</groupId>
 	<artifactId>bigdata-basic</artifactId>
 	<version>1.0</version>
-	<name>learn-job</name>
+	<name>bigdata-basic</name>
 	
 	<properties>
 		<hadoop.version>2.6.5</hadoop.version>

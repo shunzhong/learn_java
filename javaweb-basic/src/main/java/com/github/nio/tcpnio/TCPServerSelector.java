@@ -48,8 +48,7 @@ public class TCPServerSelector{
                 System.out.print(".");  
                 continue;  
             }  
-            
-            
+
             
             //获取准备好的信道所关联的Key集合的iterator实例  
             Iterator<SelectionKey> keyIter = selector.selectedKeys().iterator();  
