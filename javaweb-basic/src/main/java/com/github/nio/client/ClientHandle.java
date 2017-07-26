@@ -13,7 +13,6 @@ import java.util.Iterator;
 import java.util.Set;
 /**
  * NIO客户端
- * @author yangtao__anxpp.com
  * @version 1.0
  */
 public class ClientHandle implements Runnable{
@@ -42,7 +41,6 @@ public class ClientHandle implements Runnable{
     public void stop(){
         started = false;
     }
-    @Override
     public void run() {
         try{
             doConnect();
@@ -136,8 +134,12 @@ public class ClientHandle implements Runnable{
         //****此处不含处理“写半包”的代码
     }
     private void doConnect() throws IOException{
-        if(socketChannel.connect(new InetSocketAddress(host,port)));
-        else socketChannel.register(selector, SelectionKey.OP_CONNECT);
+
+        if (!socketChannel.connect(new InetSocketAddress(host,port))) {
+            socketChannel.register(selector, SelectionKey.OP_CONNECT);
+        }
+
+
     }
     public void sendMsg(String msg) throws Exception{
         socketChannel.register(selector, SelectionKey.OP_READ);
