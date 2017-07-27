@@ -1,7 +1,7 @@
 package com.github.nio.tcpnio;
 
-import java.net.InetSocketAddress;  
-import java.net.SocketException;  
+import java.net.InetSocketAddress;
+import java.net.SocketException;
 import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
 
@@ -24,15 +24,15 @@ public class TCPNIOClient {
         int servPort = (args.length == 3) ? Integer.parseInt(args[2]) : 7;  
         //创建一个信道，并设为非阻塞模式
         SocketChannel clntChan = SocketChannel.open();
-        clntChan.configureBlocking(false);  
+        clntChan.configureBlocking(false);
         //向服务端发起连接  
         if (!clntChan.connect(new InetSocketAddress(server, servPort))){
-            //不断地轮询连接状态，直到完成连接  
-            while (!clntChan.finishConnect()){  
-                //在等待连接的时间里，可以执行其他任务，以充分发挥非阻塞IO的异步特性  
-                //这里为了演示该方法的使用，只是一直打印"."  
-                System.out.print(".");    
-            }  
+            //不断地轮询连接状态，直到完成连接
+            while (!clntChan.finishConnect()){
+                //在等待连接的时间里，可以执行其他任务，以充分发挥非阻塞IO的异步特性
+                //这里为了演示该方法的使用，只是一直打印"."
+                System.out.print(".");
+            }
         }  
         //连接完成。为了与后面打印的"."区别开来，这里输出换行符
         System.out.print("\n");  

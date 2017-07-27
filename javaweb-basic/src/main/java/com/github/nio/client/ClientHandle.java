@@ -90,6 +90,7 @@ public class ClientHandle implements Runnable{
             SocketChannel sc = (SocketChannel) key.channel();
             if(key.isConnectable()){
                 if(sc.finishConnect());
+                    // FIXME: 7/27/17 注册读事件 shunzhong.deng 
                 else System.exit(1);
             }
             //读消息
@@ -131,10 +132,14 @@ public class ClientHandle implements Runnable{
         writeBuffer.flip();
         //发送缓冲区的字节数组
         channel.write(writeBuffer);
+
+        // FIXME: 7/27/17 不含处理“写半包 shunzhong.deng `
         //****此处不含处理“写半包”的代码
     }
     private void doConnect() throws IOException{
 
+
+        // FIXME: 7/27/17 注册读事件 shunzhong.deng 
         if (!socketChannel.connect(new InetSocketAddress(host,port))) {
             socketChannel.register(selector, SelectionKey.OP_CONNECT);
         }

@@ -6,16 +6,16 @@ package com.github.aio.server;
  */
 public class Server {
     private static int DEFAULT_PORT = 12345;
-    private static AsyncServerHandler serverHandle;
+    private static AsyncServerHandler serverHandler;
     public volatile static long clientCount = 0;
     public static void start(){
         start(DEFAULT_PORT);
     }
     public static synchronized void start(int port){
-        if(serverHandle!=null)
+        if(serverHandler !=null)
             return;
-        serverHandle = new AsyncServerHandler(port);
-        new Thread(serverHandle,"Server").start();
+        serverHandler = new AsyncServerHandler(port);
+        new Thread(serverHandler,"Server").start();
     }
     public static void main(String[] args){
         Server.start();
