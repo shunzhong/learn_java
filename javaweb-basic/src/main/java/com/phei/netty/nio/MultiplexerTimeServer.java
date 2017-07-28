@@ -68,37 +68,37 @@ public class MultiplexerTimeServer implements Runnable {
      */
     @Override
     public void run() {
-	while (!stop) {
-	    try {
-		selector.select(1000);
-		Set<SelectionKey> selectedKeys = selector.selectedKeys();
-		Iterator<SelectionKey> it = selectedKeys.iterator();
-		SelectionKey key = null;
-		while (it.hasNext()) {
-		    key = it.next();
-		    it.remove();
-		    try {
-			handleInput(key);
-		    } catch (Exception e) {
-			if (key != null) {
-			    key.cancel();
-			    if (key.channel() != null)
-				key.channel().close();
+		while (!stop) {
+			try {
+				selector.select(1000);
+				Set<SelectionKey> selectedKeys = selector.selectedKeys();
+				Iterator<SelectionKey> it = selectedKeys.iterator();
+				SelectionKey key = null;
+				while (it.hasNext()) {
+					key = it.next();
+					it.remove();
+					try {
+						handleInput(key);
+					} catch (Exception e) {
+						if (key != null) {
+								key.cancel();
+							if (key.channel() != null)
+								key.channel().close();
+						}
+					}
+				}
+			} catch (Throwable t) {
+				t.printStackTrace();
 			}
-		    }
 		}
-	    } catch (Throwable t) {
-		t.printStackTrace();
-	    }
-	}
 
-	// 多路复用器关闭后，所有注册在上面的Channel和Pipe等资源都会被自动去注册并关闭，所以不需要重复释放资源
-	if (selector != null)
-	    try {
-		selector.close();
-	    } catch (IOException e) {
-		e.printStackTrace();
-	    }
+		// 多路复用器关闭后，所有注册在上面的Channel和Pipe等资源都会被自动去注册并关闭，所以不需要重复释放资源
+		if (selector != null)
+			try {
+				selector.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
     }
 
     private void handleInput(SelectionKey key) throws IOException {
