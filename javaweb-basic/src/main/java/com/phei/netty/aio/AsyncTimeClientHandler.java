@@ -37,13 +37,13 @@ public class AsyncTimeClientHandler implements
     private CountDownLatch latch;
 
     public AsyncTimeClientHandler(String host, int port) {
-	this.host = host;
-	this.port = port;
-	try {
-	    client = AsynchronousSocketChannel.open();
-	} catch (IOException e) {
-	    e.printStackTrace();
-	}
+		this.host = host;
+		this.port = port;
+		try {
+			client = AsynchronousSocketChannel.open();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
     }
 
     @Override
@@ -51,16 +51,16 @@ public class AsyncTimeClientHandler implements
 
 	latch = new CountDownLatch(1);
 	client.connect(new InetSocketAddress(host, port), this, this);
-	try {
-	    latch.await();
-	} catch (InterruptedException e1) {
-	    e1.printStackTrace();
-	}
-	try {
-	    client.close();
-	} catch (IOException e) {
-	    e.printStackTrace();
-	}
+		try {
+			latch.await();
+		} catch (InterruptedException e1) {
+			e1.printStackTrace();
+		}
+		try {
+			client.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
     }
 
     @Override
@@ -110,7 +110,7 @@ public class AsyncTimeClientHandler implements
 						// ingnore on close
 					    }
 					}
-				    });
+				});
 			}
 		    }
 
@@ -128,13 +128,13 @@ public class AsyncTimeClientHandler implements
 
     @Override
     public void failed(Throwable exc, AsyncTimeClientHandler attachment) {
-	exc.printStackTrace();
-	try {
-	    client.close();
-	    latch.countDown();
-	} catch (IOException e) {
-	    e.printStackTrace();
-	}
+		exc.printStackTrace();
+		try {
+			client.close();
+			latch.countDown();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
     }
 
 }

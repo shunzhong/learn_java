@@ -38,18 +38,21 @@ public class ReadCompletionHandler implements
 
     @Override
     public void completed(Integer result, ByteBuffer attachment) {
-	attachment.flip();
-	byte[] body = new byte[attachment.remaining()];
-	attachment.get(body);
-	try {
-	    String req = new String(body, "UTF-8");
-	    System.out.println("The time server receive order : " + req);
-	    String currentTime = "QUERY TIME ORDER".equalsIgnoreCase(req) ? new java.util.Date(
-		    System.currentTimeMillis()).toString() : "BAD ORDER";
-	    doWrite(currentTime);
-	} catch (UnsupportedEncodingException e) {
-	    e.printStackTrace();
-	}
+		attachment.flip();
+		byte[] body = new byte[attachment.remaining()];
+		attachment.get(body);
+		try {
+			// 获取请求消息内容
+			String req = new String(body, "UTF-8");
+			System.out.println("The time server receive order : " + req);
+			String currentTime = "QUERY TIME ORDER".equalsIgnoreCase(req) ? new java.util.Date(
+				System.currentTimeMillis()).toString() : "BAD ORDER";
+
+			// 发送消息给客户端
+			doWrite(currentTime);
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
     }
 
     private void doWrite(String currentTime) {
@@ -58,8 +61,7 @@ public class ReadCompletionHandler implements
 	    ByteBuffer writeBuffer = ByteBuffer.allocate(bytes.length);
 	    writeBuffer.put(bytes);
 	    writeBuffer.flip();
-	    channel.write(writeBuffer, writeBuffer,
-		    new CompletionHandler<Integer, ByteBuffer>() {
+	    channel.write(writeBuffer, writeBuffer, new CompletionHandler<Integer, ByteBuffer>() {
 			@Override
 			public void completed(Integer result, ByteBuffer buffer) {
 			    // 如果没有发送完成，继续发送
@@ -70,22 +72,22 @@ public class ReadCompletionHandler implements
 			@Override
 			public void failed(Throwable exc, ByteBuffer attachment) {
 			    try {
-				channel.close();
+				    channel.close();
 			    } catch (IOException e) {
-				// ingnore on close
+				    // ingnore on close
 			    }
 			}
-		    });
+		});
 	}
     }
 
     @Override
     public void failed(Throwable exc, ByteBuffer attachment) {
-	try {
-	    this.channel.close();
-	} catch (IOException e) {
-	    e.printStackTrace();
-	}
+		try {
+			this.channel.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
     }
 
 }

@@ -30,15 +30,17 @@ public class AcceptCompletionHandler implements
     @Override
     public void completed(AsynchronousSocketChannel result,
 	    AsyncTimeServerHandler attachment) {
-	attachment.asynchronousServerSocketChannel.accept(attachment, this);
-	ByteBuffer buffer = ByteBuffer.allocate(1024);
-	result.read(buffer, buffer, new ReadCompletionHandler(result));
+
+		// 接受下一个连接
+		attachment.asynchronousServerSocketChannel.accept(attachment, this);
+		ByteBuffer buffer = ByteBuffer.allocate(1024);
+		result.read(buffer, buffer, new ReadCompletionHandler(result));
     }
 
     @Override
     public void failed(Throwable exc, AsyncTimeServerHandler attachment) {
-	exc.printStackTrace();
-	attachment.latch.countDown();
+		exc.printStackTrace();
+		attachment.latch.countDown();
     }
 
 }
