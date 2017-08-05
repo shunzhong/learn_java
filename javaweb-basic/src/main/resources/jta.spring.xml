@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+	<!-- Configurer that replaces ${...} placeholders with values from properties files -->
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:jta.jdbc.properties</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- 数据源配置 http://sjsky.iteye.com-->
+	<bean id="SDS" class="com.atomikos.jdbc.SimpleDataSourceBean"
+		init-method="init" destroy-method="close">
+		<property name="uniqueResourceName">
+			<value>SDS</value>
+		</property>
+		<property name="xaDataSourceClassName">
+			<value>${jdbc.SDS.class}</value>
+		</property>
+		<property name="xaDataSourceProperties">
+			<value>${jdbc.SDS.properties}</value>
+		</property>
+		<property name="exclusiveConnectionMode">
+			<value>true</value>
+		</property>
+		<property name="connectionPoolSize">
+			<value>3</value>
+		</property>
+		<property name="validatingQuery">
+			<value>SELECT 1</value>
+		</property>
+	</bean>
+
+	<bean id="SDS2" class="com.atomikos.jdbc.SimpleDataSourceBean"
+		init-method="init" destroy-method="close">
+		<property name="uniqueResourceName">
+			<value>SDS2</value>
+		</property>
+		<property name="xaDataSourceClassName">
+			<value>${jdbc.SDS2.class}</value>
+		</property>
+		<property name="xaDataSourceProperties">
+			<value>${jdbc.SDS2.properties}</value>
+		</property>
+		<property name="exclusiveConnectionMode">
+			<value>true</value>
+		</property>
+		<property name="connectionPoolSize">
+			<value>3</value>
+		</property>
+		<property name="validatingQuery">
+			<value>SELECT 1</value>
+		</property>
+	</bean>
+
+	<!-- sessionFactory http://sjsky.iteye.com-->
+	<bean id="sessionFactory1"
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource" ref="SDS" />
+		<property name="configLocation"
+			value="classpath:jta1.hibernate.cfg.xml" />
+	</bean>
+
+	<bean id="sessionFactory2"
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource" ref="SDS2" />
+		<property name="configLocation"
+			value="classpath:jta2.hibernate.cfg.xml" />
+	</bean>
+
+	<!-- TransactionManager http://sjsky.iteye.com-->
+	<!-- Construct Atomikos UserTransactionManager, needed to configure Spring -->
+	<bean id="atomikosTransactionManager"
+		class="com.atomikos.icatch.jta.UserTransactionManager"
+		init-method="init" destroy-method="close">
+		<!--  when close is called, should we force transactions to terminate or not? -->
+		<property name="forceShutdown">
+			<value>true</value>
+		</property>
+	</bean>
+
+	<!-- Also use Atomikos UserTransactionImp, needed to configure Spring  -->
+	<bean id="atomikosUserTransaction"
+		class="com.atomikos.icatch.jta.UserTransactionImp">
+		<property name="transactionTimeout">
+			<value>300</value>
+		</property>
+	</bean>
+
+	<!-- Configure the Spring framework to use JTA transactions from Atomikos -->
+	<bean id="springJTATransactionManager"
+		class="org.springframework.transaction.jta.JtaTransactionManager">
+
+		<property name="transactionManager">
+			<ref bean="atomikosTransactionManager" />
+		</property>
+		<property name="userTransaction">
+			<ref bean="atomikosUserTransaction" />
+		</property>
+	</bean>
+
+	<!-- Configure DAO http://sjsky.iteye.com-->
+	<bean id="userInfoDao"
+		class="michael.jta.atomikos.dao.impl.UserInfoDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory1" />
+	</bean>
+	<bean id="bankAccountDao"
+		class="michael.jta.atomikos.dao.BankAccountDao">
+		<property name="sessionFactory" ref="sessionFactory2" />
+	</bean>
+
+	<bean id="bankAccountService"
+		class="michael.jta.atomikos.service.impl.BankAccountServiceImpl">
+		<property name="userInfoDao" ref="userInfoDao" />
+		<property name="bankAccountDao" ref="bankAccountDao" />
+	</bean>
+
+	<!-- 定义事务规则的拦截器 http://sjsky.iteye.com-->
+	<bean id="transactionInterceptor"
+		class="org.springframework.transaction.interceptor.TransactionInterceptor">
+		<property name="transactionManager"
+			ref="springJTATransactionManager" />
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- 声明式事务边界配置 所有的bean公用一个代理bean http://sjsky.iteye.com-->
+	<bean id="baseTransactionProxy"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean"
+		abstract="true">
+		<property name="transactionManager"
+			ref="springJTATransactionManager" />
+		<property name="transactionAttributes">
+			<props>
+				<!-- 可以根据实际情况细化配置提高性能 -->
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="bankAccountServiceProxy" parent="baseTransactionProxy">
+		<property name="target">
+			<ref bean="bankAccountService" />
+		</property>
+	</bean>
+
+</beans>

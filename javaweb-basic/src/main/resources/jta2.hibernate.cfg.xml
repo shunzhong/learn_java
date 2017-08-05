@@ -1,0 +1,16 @@
+<!DOCTYPE hibernate-configuration
+    PUBLIC "-//Hibernate/Hibernate Configuration DTD//EN"
+    "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+
+	<session-factory>
+		<property name="show_sql">true</property>
+		<property name="dialect">
+			org.hibernate.dialect.MySQL5Dialect
+		</property>
+		<property name="hbm2ddl.auto">update</property>
+		<mapping class="michael.jta.atomikos.domain.BankAccount" />
+	</session-factory>
+
+</hibernate-configuration>
