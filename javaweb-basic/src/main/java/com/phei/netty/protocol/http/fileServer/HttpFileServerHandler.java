@@ -177,8 +177,10 @@ public class HttpFileServerHandler extends SimpleChannelInboundHandler<FullHttpR
                 System.out.println("Transfer complete.");
             }
         });
-        ChannelFuture lastContentFuture = ctx
-                .writeAndFlush(LastHttpContent.EMPTY_LAST_CONTENT);
+
+        // 使用Chunked 编码最后需要发送一个编码结束的空消息体，
+        // 将LastHttpContent.EMPTY_LAST_CONTENT发送到缓冲区
+        ChannelFuture lastContentFuture = ctx.writeAndFlush(LastHttpContent.EMPTY_LAST_CONTENT);
         if (!isKeepAlive(request)) {
             lastContentFuture.addListener(ChannelFutureListener.CLOSE);
         }
