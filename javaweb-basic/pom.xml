@@ -7,6 +7,7 @@
     <groupId>com.gihub</groupId>
     <artifactId>javaweb-basic</artifactId>
     <version>1.0.0</version>
+    <packaging>war</packaging>
 
     <dependencies>
         <!-- https://mvnrepository.com/artifact/com.mchange/c3p0 -->
@@ -233,15 +234,6 @@
     </dependencies>
 
     <build>
-        <sourceDirectory>src</sourceDirectory>
-        <resources>
-            <resource>
-                <directory>src</directory>
-                <excludes>
-                    <exclude>**/*.java</exclude>
-                </excludes>
-            </resource>
-        </resources>
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>

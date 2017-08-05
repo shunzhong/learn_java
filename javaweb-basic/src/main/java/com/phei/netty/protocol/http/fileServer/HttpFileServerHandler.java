@@ -192,6 +192,11 @@ public class HttpFileServerHandler extends SimpleChannelInboundHandler<FullHttpR
         }
     }
 
+    /**
+     * 解码请求的URI进行解码
+     * @param uri
+     * @return
+     */
     private String sanitizeUri(String uri) {
         try {
             uri = URLDecoder.decode(uri, "UTF-8");
