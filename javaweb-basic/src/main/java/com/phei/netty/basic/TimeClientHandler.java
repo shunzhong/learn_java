@@ -24,8 +24,8 @@ import java.util.logging.Logger;
 
 /**
  * @author lilinfeng
- * @date 2014年2月14日
  * @version 1.0
+ * @date 2014年2月14日
  */
 public class TimeClientHandler extends ChannelHandlerAdapter {
 
@@ -45,12 +45,12 @@ public class TimeClientHandler extends ChannelHandlerAdapter {
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) {
-	    ctx.writeAndFlush(firstMessage);
+        ctx.writeAndFlush(firstMessage);
     }
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg)
-	    throws Exception {
+            throws Exception {
         ByteBuf buf = (ByteBuf) msg;
         byte[] req = new byte[buf.readableBytes()];
         buf.readBytes(req);
@@ -62,7 +62,7 @@ public class TimeClientHandler extends ChannelHandlerAdapter {
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
         // 释放资源
         logger.warning("Unexpected exception from downstream : "
-            + cause.getMessage());
+                + cause.getMessage());
         ctx.close();
     }
 }
