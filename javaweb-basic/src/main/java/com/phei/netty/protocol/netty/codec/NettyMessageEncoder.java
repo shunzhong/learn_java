@@ -28,8 +28,7 @@ import java.util.Map;
  * @version 1.0
  * @date 2014年3月14日
  */
-public final class NettyMessageEncoder extends
-        MessageToByteEncoder<NettyMessage> {
+public final class NettyMessageEncoder extends MessageToByteEncoder<NettyMessage> {
 
     MarshallingEncoder marshallingEncoder;
 

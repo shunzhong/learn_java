@@ -39,7 +39,7 @@ public class LoginAuthRespHandler extends ChannelHandlerAdapter {
     private final static Log LOG = LogFactory.getLog(LoginAuthRespHandler.class);
 
     private Map<String, Boolean> nodeCheck = new ConcurrentHashMap<String, Boolean>();
-    private String[] whitekList = {"127.0.0.1", "192.168.1.104"};
+    private String[] whiteList = {"127.0.0.1", "192.168.1.104"};
 
     /**
      * Calls {@link ChannelHandlerContext#fireChannelRead(Object)} to forward to
@@ -66,7 +66,7 @@ public class LoginAuthRespHandler extends ChannelHandlerAdapter {
                         .remoteAddress();
                 String ip = address.getAddress().getHostAddress();
                 boolean isOK = false;
-                for (String WIP : whitekList) {
+                for (String WIP : whiteList) {
                     if (WIP.equals(ip)) {
                         isOK = true;
                         break;

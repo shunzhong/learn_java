@@ -26,6 +26,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ *
+ * LengthFieldBasedFrameDecoder :支持自动的TCP半包粘包处理。
+ * 需要给出消息长度字段偏移量，以及表示消息长度的数值所占用的字节数
  * @author Lilinfeng
  * @version 1.0
  * @date 2014年3月15日
