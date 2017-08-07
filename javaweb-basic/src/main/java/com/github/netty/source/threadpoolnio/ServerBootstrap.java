@@ -1,7 +1,7 @@
-package com.github.threadpoolnio;
+package com.github.netty.source.threadpoolnio;
 
-import com.github.threadpoolnio.pool.Boss;
-import com.github.threadpoolnio.pool.NioSelectorRunnablePool;
+import com.github.netty.source.threadpoolnio.pool.Boss;
+import com.github.netty.source.threadpoolnio.pool.NioSelectorRunnablePool;
 
 import java.net.SocketAddress;
 import java.nio.channels.ServerSocketChannel;

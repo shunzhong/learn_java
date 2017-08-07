@@ -1,7 +1,7 @@
-package com.github.threadpoolnio;
+package com.github.netty.source.threadpoolnio;
 
-import com.github.threadpoolnio.pool.NioSelectorRunnablePool;
-import com.github.threadpoolnio.pool.Worker;
+import com.github.netty.source.threadpoolnio.pool.NioSelectorRunnablePool;
+import com.github.netty.source.threadpoolnio.pool.Worker;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;

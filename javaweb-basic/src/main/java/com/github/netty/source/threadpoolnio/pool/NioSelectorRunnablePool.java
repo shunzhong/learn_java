@@ -1,7 +1,7 @@
-package com.github.threadpoolnio.pool;
+package com.github.netty.source.threadpoolnio.pool;
 
-import com.github.threadpoolnio.NioServerBoss;
-import com.github.threadpoolnio.NioServerWorker;
+import com.github.netty.source.threadpoolnio.NioServerBoss;
+import com.github.netty.source.threadpoolnio.NioServerWorker;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.atomic.AtomicInteger;

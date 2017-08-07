@@ -1,6 +1,6 @@
-package com.github.threadpoolnio;
+package com.github.netty.source.threadpoolnio;
 
-import com.github.threadpoolnio.pool.NioSelectorRunnablePool;
+import com.github.netty.source.threadpoolnio.pool.NioSelectorRunnablePool;
 
 import java.io.IOException;
 import java.nio.channels.Selector;
