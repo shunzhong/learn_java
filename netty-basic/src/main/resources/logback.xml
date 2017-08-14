@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <!--
+    1、实现mybatis的执行sql输出
+    2、日志按模块输出到不同的文件
+    3、在按模块输出的前提下讲错误日志归纳到统一的文件中
+    4、日志实现按天、按大小自动划分
+    5、默认每分钟自动加载一次logback.xml配置文件
+    -->
+    <!--控制台日志输出-->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- encoder的默认实现类是ch.qos.logback.classic.encoder.PatternLayoutEncoder -->
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+
+    <!--生成单文件，示例作用。暂未使用-->
+    <appender name="fileAppender" class="ch.qos.logback.core.FileAppender">
+        <file>../logs/mpd-api/mpd-api.log</file>
+
+        <!-- 必须指定，否则不会往文件输出内容 -->
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n</pattern>
+        </encoder>
+        <append>true</append>
+        <!-- prudent：如果设置为true，不同JVM的file appenders能够安全地将日志输出到同一个文件-->
+        <prudent>false</prudent>
+    </appender>
+
+
+    <!--滚动生成文件-->
+    <appender name="rollingAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+
+        <!--当天的日志-->
+        <file>../logs/mpd-api/mpd-api.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>../logs/mpd-api/mpd-api-%d{yyyy-MM-dd}-%i.log</fileNamePattern>
+
+            <!--日志保存天数，超过xx天就会被删除。单个日志文件最大500M，但日志文件总和不能超过20G-->
+            <maxHistory>30</maxHistory>
+            <maxFileSize>500MB</maxFileSize>
+            <totalSizeCap>20GB</totalSizeCap>
+        </rollingPolicy>
+        <!-- 必须指定，否则不会往文件输出内容 -->
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n</pattern>
+        </encoder>
+        <append>true</append>
+        <!-- prudent：如果设置为true，不同JVM的file appenders能够安全地将日志输出到同一个文件-->
+        <prudent>false</prudent>
+
+        <!-- 只打印错误日志 -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+
+    <!--连连支付日志管理-->
+    <appender name="llpRollingAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!--当天的日志-->
+        <file>../logs/mpd-api/mpd-api-pay-llp.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>../logs/mpd-api/mpd-api-pay-llp-%d{yyyy-MM-dd}-%i.log</fileNamePattern>
+
+            <!--日志保存天数，超过xx天就会被删除-->
+            <maxHistory>30</maxHistory>
+            <maxFileSize>500MB</maxFileSize>
+            <totalSizeCap>20GB</totalSizeCap>
+        </rollingPolicy>
+        <!-- 必须指定，否则不会往文件输出内容 -->
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n</pattern>
+        </encoder>
+        <append>true</append>
+        <!-- prudent：如果设置为true，不同JVM的file appenders能够安全地将日志输出到同一个文件-->
+        <prudent>false</prudent>
+
+        <!--错误日志不打印-->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>DENY</onMatch>
+            <onMismatch>ACCEPT</onMismatch>
+        </filter>
+    </appender>
+
+    <!--支付模块错误日志输出-->
+    <appender name="payErrorAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>../logs/mpd-api/mpd-api-pay-error.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>../logs/mpd-api/mpd-api-pay-error-%d{yyyy-MM-dd}-%i.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+            <maxFileSize>500MB</maxFileSize>
+            <totalSizeCap>20GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} %thread %X{invokeNo} %logger{40} %msg%n</pattern>
+        </encoder>
+
+        <!-- 只打印错误日志 -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+
+    <!--支付模块错误日志输出-->
+    <appender name="errorAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>../logs/mpd-api/mpd-api-error.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>../logs/mpd-api/mpd-api-error-%d{yyyy-MM-dd}-%i.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+            <maxFileSize>500MB</maxFileSize>
+            <totalSizeCap>20GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} %thread %X{invokeNo} %logger{40} %msg%n</pattern>
+        </encoder>
+
+        <!-- 只打印错误日志 -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+
+    <logger name="com.mpd.third.service.lianlianpay" level="INFO" additivity="false">
+        <appender-ref ref="llpRollingAppender" />
+        <appender-ref ref="payErrorAppender" />
+    </logger>
+
+    <!-- name值可以是包名或具体的类名：该包（包括子包）下的类或该类将采用此logger，
+         additivity="false" 避免重复打印 -->
+    <logger name="com.mpd.api" level="INFO" additivity="false">
+        <appender-ref ref="rollingAppender" />
+        <appender-ref ref="errorAppender" />
+    </logger>
+
+    <!--输出sql日志-->
+    <logger name="com.mpd.api.dao.mapper" level="DEBUG" additivity="false"/>
+    <!-- root的默认level是DEBUG -->
+    <root level="DEBUG">
+        <appender-ref ref="STDOUT" />
+    </root>
+</configuration>
