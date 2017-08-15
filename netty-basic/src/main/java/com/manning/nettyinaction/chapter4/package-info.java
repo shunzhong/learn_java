@@ -1,6 +1,6 @@
 /**
  * Contains code examples for chapter 4 of <i>Netty in Action</i>
- *
+ * <p>
  * Listing 4.1:     PlainOioServer.java
  * Listing 4.2:     PlainNioServer.java
  * Listing 4.3:     NettyOioServer.java

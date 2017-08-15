@@ -1,12 +1,13 @@
 package com.manning.nettyinaction.chapter1;
 
+import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
-import java.nio.channels.Selector;import java.nio.channels.ServerSocketChannel;
+import java.nio.channels.Selector;
+import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
-import java.io.IOException;
 import java.util.Iterator;
 import java.util.Set;
 

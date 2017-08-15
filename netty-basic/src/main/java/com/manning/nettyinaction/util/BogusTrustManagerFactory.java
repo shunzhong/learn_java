@@ -45,7 +45,7 @@ public class BogusTrustManagerFactory extends TrustManagerFactorySpi {
 
     @Override
     protected TrustManager[] engineGetTrustManagers() {
-        return new TrustManager[] { DUMMY_TRUST_MANAGER };
+        return new TrustManager[]{DUMMY_TRUST_MANAGER};
     }
 
     @Override

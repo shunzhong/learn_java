@@ -19,11 +19,6 @@ public class SecureChatServer extends ChatServer {
         this.context = context;
     }
 
-    @Override
-    protected ChannelInitializer<Channel> createInitializer(ChannelGroup group) {
-        return new SecureChatServerIntializer(group, context);
-    }
-
     public static void main(String[] args) {
         if (args.length != 1) {
             System.err.println("Please give port as argument");
@@ -42,5 +37,10 @@ public class SecureChatServer extends ChatServer {
             }
         });
         future.channel().closeFuture().syncUninterruptibly();
+    }
+
+    @Override
+    protected ChannelInitializer<Channel> createInitializer(ChannelGroup group) {
+        return new SecureChatServerIntializer(group, context);
     }
 }

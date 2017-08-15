@@ -13,6 +13,7 @@ public class CallbackFetcherExample {
 
     public interface FetchCallback {
         void onData(Data data);
+
         void onError(Throwable cause);
     }
 

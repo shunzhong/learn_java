@@ -9,11 +9,6 @@ import java.util.List;
 
 
 public class MemcachedResponseDecoder extends ByteToMessageDecoder {
-    private enum State {
-        Header,
-        Body
-    }
-
     private State state = State.Header;
     private int totalBodySize;
     private byte magic;
@@ -82,6 +77,11 @@ public class MemcachedResponseDecoder extends ByteToMessageDecoder {
                 state = State.Header;
         }
 
+    }
+
+    private enum State {
+        Header,
+        Body
     }
 }
 

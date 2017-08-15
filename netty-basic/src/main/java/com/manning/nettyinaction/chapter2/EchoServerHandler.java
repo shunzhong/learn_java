@@ -13,28 +13,33 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
  *
  * @author <a href="mailto:nmaurer@redhat.com">Norman Maurer</a>
  */
+
+// @Sharable 标示一个ChannelHandler 可以被多个Channel安全的共享
 @Sharable
-public class EchoServerHandler extends
-        ChannelInboundHandlerAdapter {
+public class EchoServerHandler extends ChannelInboundHandlerAdapter {
 
     @Override
-    public void channelRead(ChannelHandlerContext ctx,
-        Object msg) {
+    public void channelRead(ChannelHandlerContext ctx, Object msg) {
         ByteBuf in = (ByteBuf) msg;
-        System.out.println("Server received: " + ByteBufUtil
-                .hexDump(in));
+        System.out.println("Server received: " + ByteBufUtil.hexDump(in));
+
+            // 将收到的消息写给发送者，而不冲刷出站消息
         ctx.write(in);
     }
 
     @Override
     public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
+
+        // 将未决消息冲刷到远程节点，并关闭该channel
         ctx.writeAndFlush(Unpooled.EMPTY_BUFFER).addListener(ChannelFutureListener.CLOSE);
     }
 
     @Override
-    public void exceptionCaught(ChannelHandlerContext ctx,
-        Throwable cause) {
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
+
+        // 打印异常栈
         cause.printStackTrace();
+        // 关闭该channel
         ctx.close();
     }
 }

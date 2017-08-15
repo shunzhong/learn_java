@@ -7,7 +7,6 @@ import io.netty.channel.ChannelPipeline;
 import io.netty.util.CharsetUtil;
 
 /**
- *
  * Listing 6.2, 6.3 and 6.4 of <i>Netty in Action</i>
  *
  * @author <a href="mailto:nmaurer@redhat.com">Norman Maurer</a>
@@ -15,7 +14,6 @@ import io.netty.util.CharsetUtil;
 public class EventsViaChannelOutboundInvoker {
 
     /**
-     *
      * Listing 6.2 of <i>Netty in Action</i>
      */
     public static void eventsViaChannel(ChannelHandlerContext context) {
@@ -27,7 +25,6 @@ public class EventsViaChannelOutboundInvoker {
     }
 
     /**
-     *
      * Listing 6.3 of <i>Netty in Action</i>
      */
     public static void eventsViaChannelPipeline(ChannelHandlerContext context) {
@@ -39,7 +36,6 @@ public class EventsViaChannelOutboundInvoker {
     }
 
     /**
-     *
      * Listing 6.4 of <i>Netty in Action</i>
      */
     public static void eventsViaChannelHandlerContext(ChannelHandlerContext context) {

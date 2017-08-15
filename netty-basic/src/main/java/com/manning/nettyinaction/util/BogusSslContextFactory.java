@@ -40,11 +40,11 @@ public final class BogusSslContextFactory {
         SERVER_CONTEXT = serverContext;
     }
 
-    public static SSLContext getServerContext() {
-        return SERVER_CONTEXT;
-    }
-
     private BogusSslContextFactory() {
         // Unused
+    }
+
+    public static SSLContext getServerContext() {
+        return SERVER_CONTEXT;
     }
 }

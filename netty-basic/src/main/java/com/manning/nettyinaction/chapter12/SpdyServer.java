@@ -23,24 +23,6 @@ public class SpdyServer {
         this.context = context;
     }
 
-    public ChannelFuture start(InetSocketAddress address) {
-        ServerBootstrap bootstrap  = new ServerBootstrap();
-        bootstrap.group(group)
-                .channel(NioServerSocketChannel.class)
-                .childHandler(new SpdyChannelInitializer(context));
-        ChannelFuture future = bootstrap.bind(address);
-        future.syncUninterruptibly();
-        channel = future.channel();
-        return future;
-    }
-
-    public void destroy() {
-        if (channel != null) {
-            channel.close();
-        }
-        group.shutdownGracefully();
-    }
-
     public static void main(String[] args) {
         if (args.length != 1) {
             System.err.println("Please give port as argument");
@@ -60,5 +42,23 @@ public class SpdyServer {
             }
         });
         future.channel().closeFuture().syncUninterruptibly();
+    }
+
+    public ChannelFuture start(InetSocketAddress address) {
+        ServerBootstrap bootstrap = new ServerBootstrap();
+        bootstrap.group(group)
+                .channel(NioServerSocketChannel.class)
+                .childHandler(new SpdyChannelInitializer(context));
+        ChannelFuture future = bootstrap.bind(address);
+        future.syncUninterruptibly();
+        channel = future.channel();
+        return future;
+    }
+
+    public void destroy() {
+        if (channel != null) {
+            channel.close();
+        }
+        group.shutdownGracefully();
     }
 }

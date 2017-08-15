@@ -2,7 +2,7 @@ package com.manning.nettyinaction.chapter1;
 
 import java.util.concurrent.Future;
 
- /**
+/**
  * Listing 1.2  of <i>Netty in Action</i>
  *
  * @author <a href="mailto:nmaurer@redhat.com">Norman Maurer</a>
@@ -17,7 +17,7 @@ public class FutureFetcherExample {
             Fetcher fetcher = null; // obtain reference to fetcher implementation
             Future<Data> future = fetcher.fetchData();
             try {
-                while(!future.isDone()) {
+                while (!future.isDone()) {
 
                     // do something else
                 }

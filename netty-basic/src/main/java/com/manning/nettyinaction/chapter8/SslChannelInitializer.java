@@ -17,11 +17,13 @@ public class SslChannelInitializer extends ChannelInitializer<Channel> {
     private final SSLContext context;
     private final boolean client;
     private final boolean startTls;
+
     public SslChannelInitializer(SSLContext context, boolean client, boolean startTls) {
         this.context = context;
         this.client = client;
         this.startTls = startTls;
     }
+
     @Override
     protected void initChannel(Channel ch) throws Exception {
         SSLEngine engine = context.createSSLEngine();

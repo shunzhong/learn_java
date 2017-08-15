@@ -15,15 +15,14 @@
  */
 package com.phei.netty.protocol.netty.client;
 
+import com.phei.netty.protocol.netty.MessageType;
+import com.phei.netty.protocol.netty.struct.Header;
+import com.phei.netty.protocol.netty.struct.NettyMessage;
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
 
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
-
-import com.phei.netty.protocol.netty.MessageType;
-import com.phei.netty.protocol.netty.struct.Header;
-import com.phei.netty.protocol.netty.struct.NettyMessage;
 
 
 /**
@@ -52,9 +51,20 @@ public class HeartBeatReqHandler extends ChannelHandlerAdapter {
                 && message.getHeader().getType() == MessageType.HEARTBEAT_RESP
                 .value()) {
             LOG.info("Client receive server heart beat message : ---> "
-                            + message);
+                    + message);
         } else
             ctx.fireChannelRead(msg);
+    }
+
+    @Override
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause)
+            throws Exception {
+        cause.printStackTrace();
+        if (heartBeat != null) {
+            heartBeat.cancel(true);
+            heartBeat = null;
+        }
+        ctx.fireExceptionCaught(cause);
     }
 
     private class HeartBeatTask implements Runnable {
@@ -68,7 +78,7 @@ public class HeartBeatReqHandler extends ChannelHandlerAdapter {
         public void run() {
             NettyMessage heatBeat = buildHeatBeat();
             LOG.info("Client send heart beat messsage to server : ---> "
-                            + heatBeat);
+                    + heatBeat);
             ctx.writeAndFlush(heatBeat);
         }
 
@@ -79,16 +89,5 @@ public class HeartBeatReqHandler extends ChannelHandlerAdapter {
             message.setHeader(header);
             return message;
         }
-    }
-
-    @Override
-    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause)
-            throws Exception {
-        cause.printStackTrace();
-        if (heartBeat != null) {
-            heartBeat.cancel(true);
-            heartBeat = null;
-        }
-        ctx.fireExceptionCaught(cause);
     }
 }

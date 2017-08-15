@@ -10,6 +10,19 @@ import org.junit.Test;
 
 public class MemcachedResponseDecoderTest {
 
+    private static void assertResponse(MemcachedResponse response, byte magic, byte opCode, byte dataType, short status, int expires, int flags, int id, long cas, byte[] key, byte[] body) {
+        Assert.assertEquals(magic, response.magic());
+        Assert.assertArrayEquals(key, response.key().getBytes(CharsetUtil.US_ASCII));
+        Assert.assertEquals(opCode, response.opCode());
+        Assert.assertEquals(dataType, response.dataType());
+        Assert.assertEquals(status, response.status());
+        Assert.assertEquals(cas, response.cas());
+        Assert.assertEquals(expires, response.expires());
+        Assert.assertEquals(flags, response.flags());
+        Assert.assertArrayEquals(body, response.data().getBytes(CharsetUtil.US_ASCII));
+        Assert.assertEquals(id, response.id());
+    }
+
     @Test
     public void testMemcachedResponseDecoder() {
         EmbeddedChannel channel = new EmbeddedChannel(new MemcachedResponseDecoder());
@@ -35,7 +48,7 @@ public class MemcachedResponseDecoderTest {
         buffer.writeLong(cas);
         buffer.writeBytes(key);
         buffer.writeBytes(body);
-        
+
         Assert.assertTrue(channel.writeInbound(buffer));
 
         MemcachedResponse response = (MemcachedResponse) channel.readInbound();
@@ -78,18 +91,5 @@ public class MemcachedResponseDecoderTest {
 
         MemcachedResponse response = (MemcachedResponse) channel.readInbound();
         assertResponse(response, magic, opCode, dataType, Status.KEY_EXISTS, 0, 0, id, cas, key, body);
-    }
-
-    private static void assertResponse(MemcachedResponse response, byte magic, byte opCode, byte dataType, short status, int expires, int flags, int id, long cas, byte[] key, byte[] body) {
-        Assert.assertEquals(magic, response.magic());
-        Assert.assertArrayEquals(key, response.key().getBytes(CharsetUtil.US_ASCII));
-        Assert.assertEquals(opCode, response.opCode());
-        Assert.assertEquals(dataType, response.dataType());
-        Assert.assertEquals(status, response.status());
-        Assert.assertEquals(cas, response.cas());
-        Assert.assertEquals(expires, response.expires());
-        Assert.assertEquals(flags, response.flags());
-        Assert.assertArrayEquals(body, response.data().getBytes(CharsetUtil.US_ASCII));
-        Assert.assertEquals(id, response.id());
     }
 }

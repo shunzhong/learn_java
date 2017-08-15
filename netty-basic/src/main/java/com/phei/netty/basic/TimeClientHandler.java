@@ -24,8 +24,8 @@ import java.util.logging.Logger;
 
 /**
  * @author lilinfeng
- * @date 2014年2月14日
  * @version 1.0
+ * @date 2014年2月14日
  */
 public class TimeClientHandler extends ChannelHandlerAdapter {
 
@@ -45,25 +45,27 @@ public class TimeClientHandler extends ChannelHandlerAdapter {
 
     /**
      * 客户端和服务端TCP链路建立成功后，Netty的NIO线程调用此方法，
+     *
      * @param ctx 通道上下文
      */
     @Override
     public void channelActive(ChannelHandlerContext ctx) {
 
         // 将请求消息发送给服务端
-	    ctx.writeAndFlush(firstMessage);
+        ctx.writeAndFlush(firstMessage);
     }
 
 
     /**
      * 当服务端返回应答消息时，此方法会被调用
+     *
      * @param ctx
      * @param msg
      * @throws Exception
      */
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg)
-	    throws Exception {
+            throws Exception {
         ByteBuf buf = (ByteBuf) msg;
 
         // 从Netty的ByteBuf中读取并答应
@@ -77,7 +79,7 @@ public class TimeClientHandler extends ChannelHandlerAdapter {
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
         // 释放资源
         logger.warning("Unexpected exception from downstream : "
-            + cause.getMessage());
+                + cause.getMessage());
         ctx.close();
     }
 }

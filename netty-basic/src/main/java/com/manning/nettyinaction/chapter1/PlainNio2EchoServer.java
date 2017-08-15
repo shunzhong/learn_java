@@ -1,12 +1,6 @@
 package com.manning.nettyinaction.chapter1;
 
 import java.io.IOException;
-import java.lang.Integer;
-import java.lang.InterruptedException;
-import java.lang.Object;
-import java.lang.System;
-import java.lang.Thread;
-import java.lang.Throwable;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.AsynchronousServerSocketChannel;
@@ -49,13 +43,14 @@ public class PlainNio2EchoServer {
         try {
             latch.await();
         } catch (InterruptedException e) {
-          Thread.currentThread().interrupt();
+            Thread.currentThread().interrupt();
         }
 
     }
 
     private final class EchoCompletionHandler implements CompletionHandler<Integer, ByteBuffer> {
         private final AsynchronousSocketChannel channel;
+
         EchoCompletionHandler(AsynchronousSocketChannel channel) {
             this.channel = channel;
         }

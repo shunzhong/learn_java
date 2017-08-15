@@ -22,31 +22,8 @@ public class ChatServer {
     private final EventLoopGroup group = new NioEventLoopGroup();
     private Channel channel;
 
-    public ChannelFuture start(InetSocketAddress address) {
-        ServerBootstrap bootstrap  = new ServerBootstrap();
-        bootstrap.group(group)
-                .channel(NioServerSocketChannel.class)
-                .childHandler(createInitializer(channelGroup));
-        ChannelFuture future = bootstrap.bind(address);
-        future.syncUninterruptibly();
-        channel = future.channel();
-        return future;
-    }
-
-    protected ChannelInitializer<Channel> createInitializer(ChannelGroup group) {
-       return new ChatServerInitializer(group);
-    }
-
-    public void destroy() {
-        if (channel != null) {
-            channel.close();
-        }
-        channelGroup.close();
-        group.shutdownGracefully();
-    }
-
     public static void main(String[] args) {
-        args = new String[] {"8080"};
+        args = new String[]{"8080"};
         if (args.length != 1) {
             System.err.println("Please give port as argument");
             System.exit(1);
@@ -63,5 +40,28 @@ public class ChatServer {
             }
         });
         future.channel().closeFuture().syncUninterruptibly();
+    }
+
+    public ChannelFuture start(InetSocketAddress address) {
+        ServerBootstrap bootstrap = new ServerBootstrap();
+        bootstrap.group(group)
+                .channel(NioServerSocketChannel.class)
+                .childHandler(createInitializer(channelGroup));
+        ChannelFuture future = bootstrap.bind(address);
+        future.syncUninterruptibly();
+        channel = future.channel();
+        return future;
+    }
+
+    protected ChannelInitializer<Channel> createInitializer(ChannelGroup group) {
+        return new ChatServerInitializer(group);
+    }
+
+    public void destroy() {
+        if (channel != null) {
+            channel.close();
+        }
+        channelGroup.close();
+        group.shutdownGracefully();
     }
 }

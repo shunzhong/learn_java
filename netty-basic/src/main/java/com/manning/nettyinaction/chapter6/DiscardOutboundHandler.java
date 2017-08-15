@@ -6,7 +6,6 @@ import io.netty.channel.ChannelPromise;
 import io.netty.util.ReferenceCountUtil;
 
 /**
- *
  * Listing 6.10 of <i>Netty in Action</i>
  *
  * @author <a href="mailto:nmaurer@redhat.com">Norman Maurer</a>
@@ -16,7 +15,7 @@ public class DiscardOutboundHandler
 
     @Override
     public void write(ChannelHandlerContext ctx,
-                                     Object msg, ChannelPromise promise) {
+                      Object msg, ChannelPromise promise) {
         ReferenceCountUtil.release(msg);
         promise.setSuccess();
 

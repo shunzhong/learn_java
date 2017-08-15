@@ -17,21 +17,27 @@ import io.netty.util.CharsetUtil;
 public class EchoClientHandler extends
         SimpleChannelInboundHandler<ByteBuf> {
 
+
+    // 在服务器建立连接后（Channel是活跃时）调用
     @Override
     public void channelActive(ChannelHandlerContext ctx) {
         ctx.writeAndFlush(Unpooled.copiedBuffer("Netty rocks!", CharsetUtil.UTF_8));
     }
 
+
+    // 当从服务器接收到一条消息时调用
     @Override
     public void channelRead0(ChannelHandlerContext ctx,
-        ByteBuf in) {
+                             ByteBuf in) {
         System.out.println("Client received: " + ByteBufUtil
                 .hexDump(in));
     }
 
+
+    // 在处理过程中引发异常时被调用
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx,
-        Throwable cause) {
+                                Throwable cause) {
         cause.printStackTrace();
         ctx.close();
     }

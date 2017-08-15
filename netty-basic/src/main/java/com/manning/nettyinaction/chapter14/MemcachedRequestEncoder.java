@@ -24,7 +24,7 @@ public class MemcachedRequestEncoder extends
         //write key length (2 byte)
         out.writeShort(key.length); //key length is max 2 bytes i.e. a Java short
         //write extras length (1 byte)
-        int extraSize =  msg.hasExtras() ? 0x08 : 0x0;
+        int extraSize = msg.hasExtras() ? 0x08 : 0x0;
         out.writeByte(extraSize);
         //byte is the data type, not currently implemented in Memcached but required
         out.writeByte(0);
