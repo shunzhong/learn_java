@@ -145,6 +145,17 @@
         <appender-ref ref="errorAppender" />
     </logger>
 
+
+    <!-- mybatis 日志配置 sqlMapConfig.xml
+    <settings>
+	    <setting name="logImpl" value="SLF4J" />
+	</settings>
+	-->
+
+    <logger name="com.mpd.api.dao" level="DEBUG" additivity="false">
+        <appender-ref ref="STDOUT" />
+    </logger>
+
     <!--输出sql日志-->
     <logger name="com.mpd.api.dao.mapper" level="DEBUG" additivity="false"/>
     <!-- root的默认level是DEBUG -->
