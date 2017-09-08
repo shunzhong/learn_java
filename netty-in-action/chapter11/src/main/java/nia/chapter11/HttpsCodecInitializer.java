@@ -28,6 +28,8 @@ public class HttpsCodecInitializer extends ChannelInitializer<Channel> {
     protected void initChannel(Channel ch) throws Exception {
         ChannelPipeline pipeline = ch.pipeline();
         SSLEngine engine = context.newEngine(ch.alloc());
+
+        // 将 SslHandler 添加到ChannelPipeline中以使用HTTPS
         pipeline.addFirst("ssl", new SslHandler(engine));
 
         if (isClient) {
