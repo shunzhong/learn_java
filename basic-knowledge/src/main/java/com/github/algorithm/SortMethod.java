@@ -173,6 +173,28 @@ public class SortMethod {
 		}
 	}
 
+
+	/**
+	 * 要排序的一组数中，选出最小的一个数与第一个位置的数交换，
+	 * 然后在剩下的数当中再找最小的与第二个位置的数交换，如此循环到倒数第二个数和最后一个数比较为止。
+	 * @param array
+	 */
+	public static void selectSort(int[] array) {
+		int position = 0;
+		for (int i = 0; i < array.length; i++) {
+			int j = i + 1;
+			position = i;
+			int temp = array[i];
+			for (; j < array.length; j++) {
+				if (array[j] < temp) {
+					temp = array[j];
+					position = j;
+				}
+			}
+			array[position] = array[i];
+			array[i] = temp;
+		}
+	}
 	/**
 	 * 快速排序算法思路
 	 * 1、先定义一个基准数 假设为M
@@ -225,7 +247,8 @@ public class SortMethod {
 
 	/**
 	 * 冒泡排序的算法实现:【排序后，数组从小到大排列】 比较相邻的元素。如果第一个比第二个大，就交换他们两个。
-	 * 对每一对相邻元素作同样的工作，从开始第一对到结尾的最后一对。在这一点，最后的元素应该会是最大的数。 针对所有的元素重复以上的步骤，除了最后一个。
+	 * 对每一对相邻元素作同样的工作，从开始第一对到结尾的最后一对。在这一点，最后的元素应该会是最大的数。
+	 * 针对所有的元素重复以上的步骤，除了最后一个。
 	 * 持续每次对越来越少的元素重复上面的步骤，直到没有任何一对数字需要比较。
 	 * 
 	 * @param numbers

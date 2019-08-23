@@ -1,7 +1,5 @@
 package com.github.io.bio.socketio;
 
-import com.github.util.Calculator;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -35,7 +33,7 @@ public class ServerHandler implements Runnable{
 
                 System.out.println("服务器收到消息：" + expression);
                 try{
-                    result = Calculator.cal(expression).toString();
+                    result = expression + "计算成功";
                 }catch(Exception e){
                     result = "计算错误：" + e.getMessage();
                 }
