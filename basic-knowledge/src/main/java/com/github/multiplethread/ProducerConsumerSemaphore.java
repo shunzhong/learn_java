@@ -1,0 +1,73 @@
+package com.github.multiplethread;
+
+import java.util.concurrent.Semaphore;
+
+class ProducerConsumerSemaphore {
+    private static Integer count = 0;
+    //创建三个信号量
+    final Semaphore notFull = new Semaphore(10);
+    final Semaphore notEmpty = new Semaphore(0);
+    final Semaphore mutex = new Semaphore(1);
+
+    public static void main(String[] args) {
+        ProducerConsumerSemaphore producerConsumerSemaphore = new ProducerConsumerSemaphore();
+        new Thread(producerConsumerSemaphore.new Producer3()).start();
+        new Thread(producerConsumerSemaphore.new Consumer3()).start();
+        new Thread(producerConsumerSemaphore.new Producer3()).start();
+        new Thread(producerConsumerSemaphore.new Consumer3()).start();
+        new Thread(producerConsumerSemaphore.new Producer3()).start();
+        new Thread(producerConsumerSemaphore.new Consumer3()).start();
+        new Thread(producerConsumerSemaphore.new Producer3()).start();
+        new Thread(producerConsumerSemaphore.new Consumer3()).start();
+    }
+
+    class Producer3 implements Runnable {
+        @Override
+        public void run() {
+            for (int i = 0; i < 10; i++) {
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    notFull.acquire();
+                    mutex.acquire();
+                    count++;
+                    System.out.println(Thread.currentThread().getName()
+                            + "生产者生产，目前总共有" + count);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } finally {
+                    mutex.release();
+                    notEmpty.release();
+                }
+            }
+        }
+    }
+
+    class Consumer3 implements Runnable {
+        @Override
+        public void run() {
+            for (int i = 0; i < 10; i++) {
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e1) {
+                    e1.printStackTrace();
+                }
+                try {
+                    notEmpty.acquire();
+                    mutex.acquire();
+                    count--;
+                    System.out.println(Thread.currentThread().getName()
+                            + "消费者消费，目前总共有" + count);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } finally {
+                    mutex.release();
+                    notFull.release();
+                }
+            }
+        }
+    }
+}

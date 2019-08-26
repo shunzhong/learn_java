@@ -1,10 +1,8 @@
 package com.github.multiplethread;
 
 
-class Producer1Consumer1Demo
-{
-    public static void main(String[] args)
-    {
+class ProducerConsumerDemo1 {
+    public static void main(String[] args) {
         Resource1 r = new Resource1();
 
         Producer1 pro = new Producer1(r);
@@ -36,64 +34,62 @@ class Producer1Consumer1Demo
 */
 
 
-class Resource1
-{
+class Resource1 {
     private String name;
     private int count = 1;
     private boolean flag = false;
-    //  t1    t2
-    public synchronized void set(String name)
-    {
-        while(flag)
-            try{this.wait();}catch(Exception e){}//t1(放弃资格)  t2(获取资格)
-        this.name = name+"--"+count++;
 
-        System.out.println(Thread.currentThread().getName()+"...生产者.."+this.name);
+    //  t1    t2
+    public synchronized void set(String name) {
+        while (flag)
+            try {
+                this.wait();
+            } catch (Exception e) {
+            }//t1(放弃资格)  t2(获取资格)
+        this.name = name + "--" + count++;
+
+        System.out.println(Thread.currentThread().getName() + "...生产者.." + this.name);
         flag = true;
         this.notifyAll();
     }
 
 
     //  t3   t4
-    public synchronized void out()
-    {
-        while(!flag)
-            try{wait();}catch(Exception e){}//t3(放弃资格) t4(放弃资格)
-        System.out.println(Thread.currentThread().getName()+"...消费者........."+this.name);
+    public synchronized void out() {
+        while (!flag)
+            try {
+                this.wait();
+            } catch (Exception e) {
+            }//t3(放弃资格) t4(放弃资格)
+        System.out.println(Thread.currentThread().getName() + "...消费者........." + this.name);
         flag = false;
         this.notifyAll();
     }
 }
 
-class Producer1 implements Runnable
-{
+class Producer1 implements Runnable {
     private Resource1 res;
 
-    Producer1(Resource1 res)
-    {
+    Producer1(Resource1 res) {
         this.res = res;
     }
-    public void run()
-    {
-        while(true)
-        {
+
+    public void run() {
+        while (true) {
             res.set("+商品+");
         }
     }
 }
 
-class Consumer1 implements Runnable
-{
+class Consumer1 implements Runnable {
     private Resource1 res;
 
-    Consumer1(Resource1 res)
-    {
+    Consumer1(Resource1 res) {
         this.res = res;
     }
-    public void run()
-    {
-        while(true)
-        {
+
+    public void run() {
+        while (true) {
             res.out();
         }
     }

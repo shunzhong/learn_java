@@ -4,10 +4,8 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-class ProducerConsumerDemo2
-{
-    public static void main(String[] args)
-    {
+class ProducerConsumerDemo2 {
+    public static void main(String[] args) {
         Resource2 r = new Resource2();
 
         Producer2 pro = new Producer2(r);
@@ -43,8 +41,7 @@ Condition：替代了Object wait notify notifyAll
 	signal();
 	signalAll();
 */
-class Resource2
-{
+class Resource2 {
     private String name;
     private int count = 1;
     private boolean flag = false;
@@ -55,89 +52,68 @@ class Resource2
     private Condition condition_con = lock.newCondition();
 
 
-
-    public  void set(String name)throws InterruptedException
-    {
+    public void set(String name) throws InterruptedException {
         lock.lock();
-        try
-        {
-            while(flag)
+        try {
+            while (flag)
                 condition_pro.await();//t1,t2
-            this.name = name+"--"+count++;
+            this.name = name + "--" + count++;
 
-            System.out.println(Thread.currentThread().getName()+"...生产者.."+this.name);
+            System.out.println(Thread.currentThread().getName() + "...生产者.." + this.name);
             flag = true;
             condition_con.signal();
-        }
-        finally
-        {
+        } finally {
             lock.unlock();//释放锁的动作一定要执行。
         }
     }
 
 
     //  t3   t4
-    public  void out()throws InterruptedException
-    {
+    public void out() throws InterruptedException {
         lock.lock();
-        try
-        {
-            while(!flag)
+        try {
+            while (!flag)
                 condition_con.await();
-            System.out.println(Thread.currentThread().getName()+"...消费者........."+this.name);
+            System.out.println(Thread.currentThread().getName() + "...消费者........." + this.name);
             flag = false;
             condition_pro.signal();
-        }
-        finally
-        {
+        } finally {
             lock.unlock();
         }
 
     }
 }
 
-class Producer2 implements Runnable
-{
+class Producer2 implements Runnable {
     private Resource2 res;
 
-    Producer2(Resource2 res)
-    {
+    Producer2(Resource2 res) {
         this.res = res;
     }
-    public void run()
-    {
-        while(true)
-        {
-            try
-            {
+
+    public void run() {
+        while (true) {
+            try {
                 res.set("+商品+");
-            }
-            catch (InterruptedException e)
-            {
+            } catch (InterruptedException e) {
             }
 
         }
     }
 }
 
-class Consumer2 implements Runnable
-{
+class Consumer2 implements Runnable {
     private Resource2 res;
 
-    Consumer2(Resource2 res)
-    {
+    Consumer2(Resource2 res) {
         this.res = res;
     }
-    public void run()
-    {
-        while(true)
-        {
-            try
-            {
+
+    public void run() {
+        while (true) {
+            try {
                 res.out();
-            }
-            catch (InterruptedException e)
-            {
+            } catch (InterruptedException e) {
             }
         }
     }
