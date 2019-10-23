@@ -6,20 +6,21 @@ import java.util.concurrent.locks.ReentrantLock;
 
 class ProducerConsumerDemo2 {
     public static void main(String[] args) {
-        Resource2 r = new Resource2();
+        Resource2 resource = new Resource2();
 
-        Producer2 pro = new Producer2(r);
-        Consumer2 con = new Consumer2(r);
+        Producer2 pro = new Producer2(resource);
+        Consumer2 con = new Consumer2(resource);
 
-        Thread t1 = new Thread(pro);
-        Thread t2 = new Thread(pro);
-        Thread t3 = new Thread(con);
-        Thread t4 = new Thread(con);
+        Thread producerThread1 = new Thread(pro, "producer-thread-1");
+//        Thread producerThread2 = new Thread(pro, "producer-thread-2");
 
-        t1.start();
-        t2.start();
-        t3.start();
-        t4.start();
+        Thread consumerThread1 = new Thread(con, "consumer-thread-1");
+//        Thread consumerThread2 = new Thread(con, "consumer-thread-2");
+
+        producerThread1.start();
+//        producerThread2.start();
+        consumerThread1.start();
+//        consumerThread2.start();
 
     }
 }
