@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>java.sql.DriverManager</OriginalElement>
+  <nodes>
+    <node x="572.75" y="914.0">com.mysql.cj.jdbc.Driver</node>
+    <node x="487.00000000000006" y="48.0">java.sql.Driver</node>
+    <node x="56.00000000000006" y="0.0">java.util.ServiceLoader</node>
+    <node x="305.75000000000006" y="371.0">java.sql.DriverManager</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.mysql.cj.jdbc.Driver" target="java.sql.DriverManager">
+      <point x="-27.0" y="-17.5" />
+      <point x="599.75" y="889.0" />
+      <point x="491.25000000000006" y="889.0" />
+      <point x="0.0" y="246.5" />
+    </edge>
+    <edge source="java.util.ServiceLoader" target="java.util.ServiceLoader">
+      <point x="0.0" y="150.5" />
+      <point x="261.50000000000006" y="331.0" />
+      <point x="26.0" y="331.0" />
+      <point x="26.0" y="75.25" />
+      <point x="-205.5" y="-75.25" />
+    </edge>
+    <edge source="com.mysql.cj.jdbc.Driver" target="com.mysql.cj.jdbc.Driver">
+      <point x="0.0" y="17.5" />
+      <point x="626.75" y="969.0" />
+      <point x="552.75" y="969.0" />
+      <point x="552.75" y="931.5" />
+      <point x="-54.0" y="-0.0" />
+    </edge>
+    <edge source="java.sql.DriverManager" target="java.sql.Driver">
+      <point x="92.75" y="-246.5" />
+      <point x="584.0" y="351.0" />
+      <point x="578.75" y="351.0" />
+      <point x="-91.75" y="102.5" />
+    </edge>
+    <edge source="java.sql.DriverManager" target="java.util.ServiceLoader">
+      <point x="-92.75" y="-246.5" />
+      <point x="137.0" y="150.5" />
+    </edge>
+    <edge source="com.mysql.cj.jdbc.Driver" target="java.sql.Driver">
+      <point x="27.0" y="-17.5" />
+      <point x="653.75" y="889.0" />
+      <point x="762.25" y="889.0" />
+      <point x="91.75000000000001" y="102.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="219.5" y="483.0" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
